@@ -32,24 +32,6 @@ function NavbarAfterLogin() {
               </ul>
             </nav>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="sm:gap-4 sm:flex">
-              <a
-                className="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-md shadow"
-                href="/"
-              >
-                Login
-              </a>
-              <div className=" sm:flex">
-                <a
-                  className="px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-md"
-                  href="/"
-                >
-                  Register
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </header>
