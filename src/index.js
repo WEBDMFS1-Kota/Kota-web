@@ -4,6 +4,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import AddProject from './routes/AddProject';
@@ -26,6 +27,7 @@ root.render(
         <Route path="login" element={<Login />} />
         <Route path="profile" element={<Profile />} />
         <Route path="project">
+          <Route index element={<Navigate to="/" replace />} />
           <Route path="add" element={<AddProject />} />
           <Route path=":projectID" element={<Project />} />
         </Route>
