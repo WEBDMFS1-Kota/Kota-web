@@ -5,13 +5,13 @@ import NavbarAfterLogin from '../components/NavbarAfterLogin';
 
 function Home() {
   function StatusLogin(isLogged) {
-    if (isLogged) {
+    if (!isLogged) {
       return <NavbarAfterLogin />;
     }
     return <NavbarBeforeLogin />;
   }
   return (
-    <StatusLogin islogged />
+    <StatusLogin islogged={false} />
   );
 }
 
