@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHotjar } from '@fortawesome/free-brands-svg-icons';
@@ -7,13 +6,14 @@ import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
 import NavbarBeforeLogin from '../components/NavbarBeforeLogin';
 import NavbarAfterLogin from '../components/NavbarAfterLogin';
 
-function Home() {
-  function StatusLogin(isLogged) {
-    if (!isLogged) {
-      return <NavbarAfterLogin />;
-    }
-    return <NavbarBeforeLogin />;
+function StatusLogin(isLogged) {
+  if (!isLogged) {
+    return <NavbarAfterLogin />;
   }
+  return <NavbarBeforeLogin />;
+}
+
+function Home() {
   return (
     <>
       <StatusLogin islogged={false} />
