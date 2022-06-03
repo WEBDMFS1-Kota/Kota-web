@@ -2,7 +2,7 @@ import React from 'react';
 
 function NavbarBeforeLogin() {
   return (
-    <div className="rounded-none border-b-2 border-gray-600 bg-gray-900 flex justify-between w-full p-2 items-center ">
+    <div className="rounded-none shadow-xl bg-gray-900 flex justify-between w-full p-2 items-center ">
       <div className="flex justify-between  items-center space-x-3">
         <p className="text-2xl leading-6 text-white">Kota</p>
       </div>
