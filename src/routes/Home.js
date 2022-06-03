@@ -6,17 +6,18 @@ import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
 import NavbarBeforeLogin from '../components/NavbarBeforeLogin';
 import NavbarAfterLogin from '../components/NavbarAfterLogin';
 
-function StatusLogin(isLogged) {
-  if (!isLogged) {
+function StatusLogin({ islogged }) {
+  if (islogged) {
     return <NavbarAfterLogin />;
   }
   return <NavbarBeforeLogin />;
 }
 
 function Home() {
+  const display = false;
   return (
     <>
-      <StatusLogin islogged={false} />
+      <StatusLogin islogged={display} />
       <div className="flex justify-center">
         <div className="bg-gray-700 mt-6 rounded py-3 flex justify-center w-96">
           <div className="flex">
