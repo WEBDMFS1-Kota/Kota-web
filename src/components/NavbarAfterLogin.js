@@ -13,9 +13,9 @@ function NavbarAfterLogin() {
           <button
             className="inline-flex justify-center w-full leading-5 transition duration-150 ease-in-out rounded-md focus:outline-none"
             type="button"
-            aria-haspopup="true"
-            aria-expanded="true"
-            aria-controls="headlessui-menu-items-117"
+            aria-haspopup="false"
+            aria-expanded="false"
+            aria-controls=""
           >
             <img className="rounded-full" src="https://i.ibb.co/L1LQtBm/Ellipse-1.png" alt="avatar" />
           </button>

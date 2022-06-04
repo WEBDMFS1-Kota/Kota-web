@@ -12,9 +12,9 @@ function NavbarBeforeLogin() {
             <button
               className="inline-flex justify-center text-white hover:underline w-full leading-5 transition duration-150 ease-in-out rounded focus:outline-none px-5 py-2.5"
               type="button"
-              aria-haspopup="true"
-              aria-expanded="true"
-              aria-controls="headlessui-menu-items-117"
+              aria-haspopup="false"
+              aria-expanded="false"
+              aria-controls=""
             >
               login
             </button>
