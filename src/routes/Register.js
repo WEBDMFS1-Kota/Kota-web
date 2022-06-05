@@ -1,3 +1,5 @@
+import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +19,9 @@ function Register() {
               Avatar
               <input type="hidden" name="avatar" id="avatar" />
             </label>
-            <div className="rounded-full h-24 w-24 bg-gray-500 mx-auto flex items-center justify-center" />
+            <div className="rounded-full h-24 w-24 bg-gray-500 mx-auto flex items-center justify-center">
+              <FontAwesomeIcon className="" icon={faCamera} size="2xl" />
+            </div>
           </div>
           <div className="grid gap-4 grid-cols-2">
             <div>
