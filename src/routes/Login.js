@@ -20,7 +20,7 @@ function Login() {
               htmlFor="email"
               className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
             >
-              Your
+              Your pseudo /
               email
               <input
                 type="email"
@@ -70,13 +70,10 @@ function Login() {
                 </label>
               </div>
             </div>
-            <a
-              href="https://google.fr"
-              className="text-sm text-blue-700 hover:underline ml-auto dark:text-blue-500"
-            >
+            <Link to="/forgotPassword" className="text-sm text-blue-700 hover:underline ml-auto dark:text-blue-500">
               Lost
               Password?
-            </a>
+            </Link>
           </div>
           <button
             type="submit"

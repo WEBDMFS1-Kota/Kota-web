@@ -9,6 +9,7 @@ import {
 import { Provider } from 'react-redux';
 import AddProject from './routes/AddProject';
 import NotFoundError from './routes/errors/404';
+import ForgotPassword from './routes/ForgotPassword';
 import Login from './routes/Login';
 import Profile from './routes/Profile';
 import Project from './routes/Project';
@@ -27,6 +28,7 @@ root.render(
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="forgotPassword" element={<ForgotPassword />} />
         <Route path="profile" element={<Profile />} />
         <Route path="project">
           <Route index element={<Navigate to="/" replace />} />
