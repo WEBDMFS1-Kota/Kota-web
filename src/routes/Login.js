@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [isLogin, setLogin] = useState(false);
@@ -87,13 +88,7 @@ function Login() {
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
             Not registered?
             {' '}
-            <a
-              href="https://google.fr"
-              className="text-blue-700 hover:underline dark:text-blue-500"
-            >
-              Create
-              account
-            </a>
+            <Link to="/register" className="text-blue-700 hover:underline dark:text-blue-500">Create an account</Link>
           </div>
         </form>
       </div>
