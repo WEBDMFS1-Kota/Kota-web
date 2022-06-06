@@ -15,6 +15,7 @@ import Profile from './routes/Profile';
 import Project from './routes/Project';
 import Home from './routes/Home';
 import Register from './routes/Register';
+import ResetPassword from './routes/ResetPassword';
 import store from './store/index';
 import './index.css';
 
@@ -29,6 +30,7 @@ root.render(
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="forgotPassword" element={<ForgotPassword />} />
+        <Route path="resetPassword" element={<ResetPassword />} />
         <Route path="profile" element={<Profile />} />
         <Route path="project">
           <Route index element={<Navigate to="/" replace />} />
