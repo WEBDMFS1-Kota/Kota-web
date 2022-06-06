@@ -17,6 +17,8 @@ function Login() {
             >
               Your pseudo /
               email
+              {' '}
+              <span className="text-red-500">*</span>
               <input
                 type="email"
                 name="email"
@@ -34,6 +36,8 @@ function Login() {
             >
               Your
               password
+              {' '}
+              <span className="text-red-500">*</span>
               <input
                 type="password"
                 name="password"

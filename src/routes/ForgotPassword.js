@@ -16,6 +16,8 @@ function ForgotPassword() {
             >
               Your
               email
+              {' '}
+              <span className="text-red-500">*</span>
               <input
                 type="email"
                 name="email"

@@ -30,6 +30,8 @@ function Register() {
                 className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
               >
                 Firstname
+                {' '}
+                <span className="text-red-500">*</span>
                 <input
                   type="text"
                   name="firstname"
@@ -46,6 +48,8 @@ function Register() {
                 className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
               >
                 Lastname
+                {' '}
+                <span className="text-red-500">*</span>
                 <input
                   type="text"
                   name="lastname"
@@ -63,6 +67,8 @@ function Register() {
               className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
             >
               Pseudonyme
+              {' '}
+              <span className="text-red-500">*</span>
               <input
                 type="text"
                 name="pseudonyme"
@@ -79,6 +85,8 @@ function Register() {
               className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
             >
               Email
+              {' '}
+              <span className="text-red-500">*</span>
               <input
                 type="email"
                 name="email"
@@ -95,6 +103,8 @@ function Register() {
               className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
             >
               Password
+              {' '}
+              <span className="text-red-500">*</span>
               <input
                 type="password"
                 name="password"
@@ -102,6 +112,39 @@ function Register() {
                 placeholder="••••••••"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 required=""
+              />
+            </label>
+          </div>
+          <div>
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+            >
+              Confirm password
+              {' '}
+              <span className="text-red-500">*</span>
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="••••••••"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                required=""
+              />
+            </label>
+          </div>
+          <div>
+            <label
+              htmlFor="githubprofileurl"
+              className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+            >
+              Github profile URL
+              <input
+                type="text"
+                name="githubprofileurl"
+                id="githubprofileurl"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="https://github.com/..."
               />
             </label>
           </div>
@@ -123,6 +166,8 @@ function Register() {
                 You agree with our general terms you can find
                 {' '}
                 <a href="https://www.termsandcondiitionssample.com/live.php?token=MTnI9Z8q7MrnYYLecv1nmjSQRfwtZT94" target="_blank" rel="noreferrer" className="text-blue-700 hover:underline dark:text-blue-500">here</a>
+                {' '}
+                <span className="text-red-500">*</span>
               </label>
             </div>
           </div>

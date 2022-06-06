@@ -15,6 +15,8 @@ function resetPassword() {
             >
               Your
               password
+              {' '}
+              <span className="text-red-500">*</span>
               <input
                 type="password"
                 name="password"
@@ -31,6 +33,8 @@ function resetPassword() {
               className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
             >
               Confirm your password
+              {' '}
+              <span className="text-red-500">*</span>
               <input
                 type="password"
                 name="confirmPassword"
