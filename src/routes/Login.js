@@ -1,12 +1,7 @@
-/* eslint-disable */
-
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Login() {
-  const [isLogin, setLogin] = useState(false);
-
-
   return (
     <section className="text-white min-h-screen bg-gray-900 flex items-center justify-center">
       <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -61,6 +56,7 @@ function Login() {
                 />
               </div>
               <div className="text-sm ml-3">
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <label
                   htmlFor="remember"
                   className="font-medium text-gray-900 dark:text-gray-300"
