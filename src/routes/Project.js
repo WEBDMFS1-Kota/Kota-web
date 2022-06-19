@@ -1,16 +1,42 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import 'github-markdown-css';
+import '../styles/project.css';
+import { StatusLogin } from './Home';
 
 function Project() {
+  const display = false;
+
   return (
-    <section className="text-white bg-gray-900">
-      <div className="max-w-screen-xl px-4 py-32 mx-auto lg:h-screen lg:items-center lg:flex">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-3xl font-extrabold text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-green-300 via-blue-500 to-purple-600">
-            Project
-          </h1>
+    <div>
+      <StatusLogin islogged={display} />
+      <section className="text-white bg-gray-900">
+        <div className="w-1/2 mx-auto">
+          <div className="py-10 text-center">
+            <h1 className="text-6xl">Title of project</h1>
+          </div>
+          <div>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              className="markdown-body"
+            />
+          </div>
+          <div className="grid grid-cols-4 mt-10 px-10 pb-10">
+            <div className="col-span-1">
+              <img className="border-2 border-black rounded-full h-auto w-24" src="https://image.winudf.com/v2/image1/Y29tLm1uaWRlbmMuYXZ0YXJtYWtlcl9zY3JlZW5fNF8xNTU0NjQ5MzE4XzAwMw/screen-4.jpg?fakeurl=1&type=.webp" alt="avatar" />
+            </div>
+            <div className="col-span-2 my-auto">
+              <h3 className="text-3xl">Elouan MAILLY</h3>
+              <p>Je suis la description de l&apos;utilisateur</p>
+            </div>
+            <div className="my-auto">
+              <button type="button" className="rounded-md p-2 border border-white float-right">Voir le profil</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
 

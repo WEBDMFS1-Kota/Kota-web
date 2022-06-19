@@ -6,7 +6,7 @@ import { faRankingStar, faArrowDown, faArrowUp } from '@fortawesome/free-solid-s
 import NavbarBeforeLogin from '../components/NavbarBeforeLogin';
 import NavbarAfterLogin from '../components/NavbarAfterLogin';
 
-function StatusLogin({ islogged }) {
+export function StatusLogin({ islogged }) {
   if (islogged) {
     return <NavbarAfterLogin />;
   }
