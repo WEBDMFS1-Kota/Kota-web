@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHotjar } from '@fortawesome/free-brands-svg-icons';
 import { faRankingStar, faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
@@ -13,15 +13,37 @@ export function StatusLogin({ islogged }) {
   return <NavbarBeforeLogin />;
 }
 
+const requestOptions = {
+  method: 'GET',
+};
+
 function Home() {
   const display = false;
+  const [listMode, setListMode] = useState('hot');
+  const [projects, setProjects] = useState([]);
+
+  async function fetchData() {
+    const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/${listMode}`, requestOptions);
+    const response = await request.json();
+    setProjects(response);
+    console.log(projects);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [listMode]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
       <StatusLogin islogged={display} />
       <div className="flex justify-center">
         <div className="bg-gray-700 mt-6 rounded shadow-xl py-3 flex justify-center w-96">
           <div className="flex">
-            <button type="button" className="rounded-xl hover:bg-gray-600 py-1.5 px-2.5 mr-4">
+            <button type="button" className="rounded-xl hover:bg-gray-600 py-1.5 px-2.5 mr-4" onClick={() => setListMode('hot')}>
               <div className="flex items-center justify-center">
                 <span className="text-sm font-medium text-white">
                   <FontAwesomeIcon className="mr-3" icon={faHotjar} />
@@ -29,7 +51,7 @@ function Home() {
                 </span>
               </div>
             </button>
-            <button type="button" className="rounded-xl hover:bg-gray-600 py-1.5 px-2.5 ml-4">
+            <button type="button" className="rounded-xl hover:bg-gray-600 py-1.5 px-2.5 ml-4" onClick={() => setListMode('top')}>
               <div className="flex items-center justify-center">
                 <span className="text-sm font-medium text-white">
                   <FontAwesomeIcon className="mr-3" icon={faRankingStar} />
