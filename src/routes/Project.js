@@ -14,18 +14,22 @@ function Project() {
 
   const navigate = useNavigate();
 
+  async function fetchCreatorInfo() {
+    console.log(project);
+  }
   async function fetchProjectInfos() {
     const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/${projectID}`, { method: 'GET' });
     if (request.status === 200) {
       const response = await request.json();
       setProject(response);
+      await fetchCreatorInfo();
     } else {
       navigate('/project/notfound', { replace: true });
     }
   }
 
   useEffect(() => {
-    fetchProjectInfos().then(() => setLoading(true));
+    fetchProjectInfos().then(() => setLoading(false));
   }, []);
 
   if (loading) {
