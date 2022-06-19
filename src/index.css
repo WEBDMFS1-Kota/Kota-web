@@ -5,3 +5,27 @@
 body {
   background-color: rgb(31 41 55);
 }
+
+.EasyMDEContainer {
+  @apply text-white bg-transparent border-white
+}
+
+.CodeMirror, .editor-preview {
+  @apply text-white bg-transparent border-white
+}
+
+.cm-s-easymde .CodeMirror-cursor {
+  @apply text-white bg-transparent border-white
+}
+
+.editor-toolbar button i {
+  @apply text-white bg-transparent border-white
+}
+
+.editor-toolbar button.active, .editor-toolbar button:hover {
+  @apply text-white bg-transparent border-white
+}
+
+.editor-preview pre {
+  @apply text-white bg-transparent border-white
+}
