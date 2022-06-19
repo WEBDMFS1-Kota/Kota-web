@@ -35,6 +35,7 @@ root.render(
         <Route path="project">
           <Route index element={<Navigate to="/" replace />} />
           <Route path="add" element={<AddProject />} />
+          <Route path="notfound" element={<NotFoundError />} />
           <Route path=":projectID" element={<Project />} />
         </Route>
         <Route path="*" element={<NotFoundError />} />
