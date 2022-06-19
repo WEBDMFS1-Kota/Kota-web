@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHotjar } from '@fortawesome/free-brands-svg-icons';
-import { faRankingStar, faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
+import SkeletonProjectCard from '../components/home/SkeletonProjectCard';
+import ProjectCard from '../components/home/ProjectCard';
 
 import NavbarBeforeLogin from '../components/NavbarBeforeLogin';
 import NavbarAfterLogin from '../components/NavbarAfterLogin';
@@ -19,6 +21,7 @@ const requestOptions = {
 
 function Home() {
   const display = false;
+  const [loadingData, setLoadingData] = useState(true);
   const [listMode, setListMode] = useState('hot');
   const [projects, setProjects] = useState([]);
 
@@ -26,15 +29,15 @@ function Home() {
     const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/${listMode}`, requestOptions);
     const response = await request.json();
     setProjects(response);
-    console.log(projects);
   }
 
   useEffect(() => {
-    fetchData();
+    setLoadingData(true);
+    fetchData().then(() => setLoadingData(true));
   }, [listMode]);
 
   useEffect(() => {
-    fetchData();
+    fetchData().then(() => setLoadingData(true));
   }, []);
 
   return (
@@ -62,26 +65,11 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 my-10 mx-12 justify-items-center">
-        <div className="bg-gray-700 text-white w-96 rounded-lg overflow-hidden shadow-xl my-2">
-          <img className="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-grey-darker text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla!
-            </p>
-          </div>
-          <div className="flex px-6 py-4">
-            <button type="button" className=" rounded-xl hover:bg-gray-600 py-1.5 px-2.5">
-              <span className="inline-block bg-grey-lighter rounded-full px-1 py-1 text-sm font-semibold text-grey-darker mr-2"><FontAwesomeIcon icon={faArrowUp} /></span>
-              <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">420</span>
-            </button>
-            <button type="button" className="rounded-xl hover:bg-gray-600 py-1.5 px-2.5">
-              <span className="inline-block bg-grey-lighter rounded-full px-1 py-1 text-sm font-semibold text-grey-darker mr-2"><FontAwesomeIcon icon={faArrowDown} /></span>
-              <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">3</span>
-            </button>
-          </div>
-        </div>
+      <div>
+        {loadingData
+            && [...Array(5)].map(() => <SkeletonProjectCard />)}
+        {!loadingData
+            && projects.map((project) => <ProjectCard key={project.id} project={project} />)}
       </div>
     </>
   );
