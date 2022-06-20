@@ -1,7 +1,9 @@
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../store/userSlice';
 
 function Register() {
   const [firstname, setFirstname] = useState('');
@@ -10,6 +12,9 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [githubprofileurl, setGithubProfileUrl] = useState('');
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   async function createAccount() {
     const requestOptions = {
@@ -26,8 +31,9 @@ function Register() {
     };
     const response = await fetch('https://kota-api-prod.herokuapp.com/signup', requestOptions);
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.token);
+      const { token } = await response.json();
+      dispatch(login(token));
+      navigate('/', { replace: true });
     }
   }
   return (
