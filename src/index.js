@@ -7,6 +7,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import AddProject from './routes/AddProject';
 import NotFoundError from './routes/errors/404';
 import ForgotPassword from './routes/ForgotPassword';
@@ -16,7 +17,7 @@ import Project from './routes/Project';
 import Home from './routes/Home';
 import Register from './routes/Register';
 import ResetPassword from './routes/ResetPassword';
-import store from './store/index';
+import store, { persistor } from './store/index';
 import './index.css';
 
 const root = ReactDOM.createRoot(
@@ -24,22 +25,24 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="forgotPassword" element={<ForgotPassword />} />
-        <Route path="resetPassword" element={<ResetPassword />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="project">
-          <Route index element={<Navigate to="/" replace />} />
-          <Route path="add" element={<AddProject />} />
-          <Route path="notfound" element={<NotFoundError />} />
-          <Route path=":projectID" element={<Project />} />
-        </Route>
-        <Route path="*" element={<NotFoundError />} />
-      </Routes>
-    </BrowserRouter>
+    <PersistGate loading={null} persistor={persistor}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="forgotPassword" element={<ForgotPassword />} />
+          <Route path="resetPassword" element={<ResetPassword />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="project">
+            <Route index element={<Navigate to="/" replace />} />
+            <Route path="add" element={<AddProject />} />
+            <Route path="notfound" element={<NotFoundError />} />
+            <Route path=":projectID" element={<Project />} />
+          </Route>
+          <Route path="*" element={<NotFoundError />} />
+        </Routes>
+      </BrowserRouter>
+    </PersistGate>
   </Provider>,
 );
