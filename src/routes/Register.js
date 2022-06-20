@@ -24,7 +24,11 @@ function Register() {
         githubprofileurl: `${githubprofileurl}`,
       }),
     };
-    await fetch('https://kota-api-prod.herokuapp.com/users', requestOptions);
+    const response = await fetch('https://kota-api-prod.herokuapp.com/signup', requestOptions);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.token);
+    }
   }
   return (
     <section className="text-white min-h-screen bg-gray-900 flex items-center justify-center">
