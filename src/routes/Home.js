@@ -33,11 +33,11 @@ function Home() {
 
   useEffect(() => {
     setLoadingData(true);
-    fetchData().then(() => setLoadingData(true));
+    fetchData().then(() => setLoadingData(false));
   }, [listMode]);
 
   useEffect(() => {
-    fetchData().then(() => setLoadingData(true));
+    fetchData().then(() => setLoadingData(false));
   }, []);
 
   return (
