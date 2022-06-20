@@ -1,9 +1,31 @@
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Register() {
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [pseudo, setPseudo] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [githubprofileurl, setGithubProfileUrl] = useState('');
+
+  async function createAccount() {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({
+        pseudo: `${pseudo}`,
+        firstname: `${firstname}`,
+        lastname: `${lastname}`,
+        email: `${email}`,
+        password: `${password}`,
+        githubprofileurl: `${githubprofileurl}`,
+      }),
+    };
+    await fetch('https://kota-api-prod.herokuapp.com/users', requestOptions);
+  }
   return (
     <section className="text-white min-h-screen bg-gray-900 flex items-center justify-center">
       <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -38,6 +60,7 @@ function Register() {
                   id="firstname"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Firstname"
+                  onChange={(e) => setFirstname(e.target.value)}
                   required=""
                 />
               </label>
@@ -56,6 +79,7 @@ function Register() {
                   id="lastname"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Lastname"
+                  onChange={(e) => setLastname(e.target.value)}
                   required=""
                 />
               </label>
@@ -75,6 +99,7 @@ function Register() {
                 id="pseudonyme"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="Pseudo"
+                onChange={(e) => setPseudo(e.target.value)}
                 required=""
               />
             </label>
@@ -93,6 +118,7 @@ function Register() {
                 id="email"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="name@company.com"
+                onChange={(e) => setEmail(e.target.value)}
                 required=""
               />
             </label>
@@ -111,6 +137,7 @@ function Register() {
                 id="password"
                 placeholder="••••••••"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                onChange={(e) => setPassword(e.target.value)}
                 required=""
               />
             </label>
@@ -145,6 +172,7 @@ function Register() {
                 id="githubprofileurl"
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                 placeholder="https://github.com/..."
+                onChange={(e) => setGithubProfileUrl(e.target.value)}
               />
             </label>
           </div>
@@ -173,7 +201,8 @@ function Register() {
           </div>
           <button
             type="button"
-            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:hidden"
+            onClick={createAccount}
           >
             Create your account
           </button>
