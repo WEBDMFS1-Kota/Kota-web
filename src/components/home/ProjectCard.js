@@ -17,6 +17,18 @@ function projectCard(props) {
     await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
   }
 
+  async function downVote() {
+    const options = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        voterId: 1,
+        value: -1,
+      }),
+    };
+    await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+  }
+
   return (
     <div className="grid grid-cols-1 my-2 mx-12 justify-items-center">
       <div className="bg-gray-700 text-white w-96 rounded-lg overflow-hidden shadow-xl my-2">
