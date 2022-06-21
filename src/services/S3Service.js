@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 let client = null;
 
-async function S3Interface() {
+function S3Interface() {
   if (!client) {
     const region = 'eu-west-3';
     client = new S3Client({
@@ -20,24 +20,27 @@ async function S3Interface() {
 }
 
 async function uploadImage(folderPath, file) {
-  const uploadInterface = S3Interface();
+  const uploadInterface = await S3Interface();
 
   const fileName = uuidv4();
-  const fileKey = `${folderPath}/${fileName}`;
+  const fileKey = `${folderPath}/${fileName}.${file.name.split('.')[1]}`;
 
   const uploadParams = {
-    Bucket: folderPath,
+    Bucket: 'kota-s3-prod',
     Key: fileKey,
     Body: file,
   };
 
+  console.log(uploadParams);
+
   try {
-    await uploadInterface.send(new PutObjectCommand(uploadParams));
-    return true;
+    const data = await uploadInterface.send(new PutObjectCommand(uploadParams));
+    console.log(data);
+    return `https://kota-s3-prod.s3.eu-west-3.amazonaws.com/${fileKey}`;
   } catch (err) {
     console.error('There was an error uploading your photo: ', err.message);
-    return false;
+    return null;
   }
 }
 
-export default uploadImage();
+export default uploadImage;

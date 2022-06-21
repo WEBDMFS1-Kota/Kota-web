@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import Select from 'react-select';
+import uploadImage from '../services/S3Service';
 
 const customStyles = {
   menu: (provided) => ({
@@ -37,6 +38,7 @@ const customStyles = {
 function AddProject() {
   const [projectTitle, setProjectTitle] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
+  const [projectImage, setProjectImage] = useState('');
   const [globalTags, setGlobalTags] = useState([]);
   const [projectTags, setProjectTags] = useState([]);
 
@@ -76,6 +78,22 @@ function AddProject() {
         const content = readerEvent.target.result;
         setProjectDescription(content);
       };
+    };
+    input.click();
+  }
+
+  function selectImage() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.jpg,.jpeg,.png,.svg,.webp,.gif,.avif';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+
+      uploadImage('projectImages', file).then((imageURL) => {
+        if (imageURL) {
+          setProjectImage(imageURL);
+        }
+      });
     };
     input.click();
   }
@@ -155,6 +173,18 @@ function AddProject() {
               required=""
             />
           </label>
+        </div>
+        <div className="mt-4 w-full">
+          <h1
+            className="text-lg font-medium text-gray-900 block dark:text-gray-300 mb-5"
+          >
+            Image of the project (optional)
+          </h1>
+          <div className="w-full text-center">
+            <img src={projectImage} alt="projectImage" className="mb-4 mx-auto" />
+            <button type="button" className="mx-auto p-2 border-2 border-white rounded-lg" onClick={selectImage}>Upload image</button>
+          </div>
+          <input type="hidden" onChange={(e) => setProjectImage(e.target.value)} />
         </div>
         <div className="mt-4">
           <h1
