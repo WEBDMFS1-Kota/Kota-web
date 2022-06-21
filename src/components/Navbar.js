@@ -52,7 +52,7 @@ function Navbar() {
                 <div className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-900 border border-gray-600 divide-y divide-gray-500 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">
                   <div className="py-1">
                     <NavLink to={`/user/${userID}`} className="text-white flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">View profile</NavLink>
-                    <NavLink to="/settings" className="text-white flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">Account settings</NavLink>
+                    <NavLink to="/userSettings" className="text-white flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" role="menuitem">Account settings</NavLink>
                   </div>
                   <div className="py-1">
                     <a href="/" className="text-white flex justify-between w-full px-4 py-2 text-sm leading-5 text-left" onClick={signOut} role="menuitem">Sign out</a>

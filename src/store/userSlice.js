@@ -25,12 +25,20 @@ export const userSlice = createSlice({
       state.isLogged = false;
       state.userId = null;
     },
+    updateUserInfos: (state, action) => {
+      state.pseudo = action.payload.pseudo || state.pseudo;
+      state.avatar = action.payload.avatar || state.avatar;
+    },
   },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateUserInfos } = userSlice.actions;
 
 export const getToken = (state) => state.user.token;
+
+export const getPseudo = (state) => state.user.pseudo;
+
+export const getAvatar = (state) => state.user.avatar;
 
 export const isLogged = (state) => state.user.isLogged;
 
