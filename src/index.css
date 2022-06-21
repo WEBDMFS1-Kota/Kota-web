@@ -11,7 +11,7 @@ body {
 }
 
 .CodeMirror, .editor-preview {
-  @apply text-white bg-transparent border-white
+  @apply text-white bg-gray-900 border-white
 }
 
 .cm-s-easymde .CodeMirror-cursor {
