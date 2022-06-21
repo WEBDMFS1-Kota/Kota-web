@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import Select from 'react-select';
@@ -38,6 +40,9 @@ function AddProject() {
   const [globalTags, setGlobalTags] = useState([]);
   const [projectTags, setProjectTags] = useState([]);
 
+  const token = useSelector((state) => state.user.token);
+  const navigate = useNavigate();
+
   const ProjectDescChange = useCallback((value) => {
     setProjectDescription(value);
   }, []);
@@ -57,10 +62,6 @@ function AddProject() {
     }
   }
 
-  useEffect(() => {
-    fetchTags();
-  }, []);
-
   function loadMDFile() {
     const input = document.createElement('input');
     input.type = 'file';
@@ -71,9 +72,8 @@ function AddProject() {
       const reader = new FileReader();
       reader.readAsText(file, 'UTF-8');
 
-      // here we tell the reader what to do when it's done reading...
       reader.onload = (readerEvent) => {
-        const content = readerEvent.target.result; // this is the content!
+        const content = readerEvent.target.result;
         setProjectDescription(content);
       };
     };
@@ -81,10 +81,38 @@ function AddProject() {
   }
 
   async function createProject() {
-    console.log(projectTitle);
-    console.log(projectDescription);
-    console.log(projectTags);
+    const sentProjectTags = [];
+
+    projectTags.forEach((projectTag) => {
+      sentProjectTags.push({
+        id: projectTag.value,
+        name: projectTag.label,
+      });
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title: projectTitle,
+        description: projectDescription,
+        projectTags: sentProjectTags,
+      }),
+    };
+    const response = await fetch('https://kota-api-prod.herokuapp.com/projects', requestOptions);
+    if (response.ok) {
+      const { id } = await response.json();
+      navigate(`/project/${id}`, { replace: false });
+    }
   }
+
+  useEffect(() => {
+    fetchTags();
+  }, []);
 
   return (
     <section className="text-white bg-gray-900">
@@ -136,7 +164,7 @@ function AddProject() {
           </h1>
           <SimpleMDE className="bg-transparent" onChange={ProjectDescChange} value={projectDescription} />
         </div>
-        <div>
+        <div className="mb-32">
           <h1 className="text-lg font-medium text-gray-900 block dark:text-gray-300 mb-5">
             Tags of the project
           </h1>
