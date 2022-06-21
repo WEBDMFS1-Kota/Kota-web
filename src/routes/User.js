@@ -19,7 +19,6 @@ function User() {
     if (request.ok) {
       const response = await request.json();
       setUserProjects(response);
-      console.log(userProjects);
     }
   }
 
