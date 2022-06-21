@@ -134,7 +134,7 @@ function AddProject() {
           >
             Description of the project
           </h1>
-          <SimpleMDE className="bg-transparent" onChange={ProjectDescChange} />
+          <SimpleMDE className="bg-transparent" onChange={ProjectDescChange} value={projectDescription} />
         </div>
         <div>
           <h1 className="text-lg font-medium text-gray-900 block dark:text-gray-300 mb-5">
