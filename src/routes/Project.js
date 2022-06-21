@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, NavLink } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import 'github-markdown-css';
 import '../styles/project.css';
@@ -9,11 +9,16 @@ function Project() {
   const { projectID } = useParams();
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState({});
+  const [projectCreator, setProjectCreator] = useState({});
 
   const navigate = useNavigate();
 
   async function fetchCreatorInfo() {
-    console.log(project);
+    const request = await fetch(`https://kota-api-prod.herokuapp.com/users/${projectID}/projectCreator`, { method: 'GET' });
+    if (request.ok) {
+      const response = await request.json();
+      setProjectCreator(response);
+    }
   }
   async function fetchProjectInfos() {
     const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/${projectID}`, { method: 'GET' });
@@ -57,14 +62,13 @@ function Project() {
           </div>
           <div className="grid grid-cols-4 mt-10 px-10 pb-10">
             <div className="col-span-1">
-              <img className="border-2 border-black rounded-full h-auto w-24" src="https://image.winudf.com/v2/image1/Y29tLm1uaWRlbmMuYXZ0YXJtYWtlcl9zY3JlZW5fNF8xNTU0NjQ5MzE4XzAwMw/screen-4.jpg?fakeurl=1&type=.webp" alt="avatar" />
+              <img className="border-2 border-black rounded-full h-auto w-24" src={projectCreator.avatar || `${process.env.PUBLIC_URL}/default-avatar.jpg`} alt="avatar" />
             </div>
             <div className="col-span-2 my-auto">
-              <h3 className="text-3xl">Elouan MAILLY</h3>
-              <p>Je suis la description de l&apos;utilisateur</p>
+              <h3 className="text-3xl">{projectCreator.pseudo}</h3>
             </div>
             <div className="my-auto">
-              <button type="button" className="rounded-md p-2 border border-white float-right">Voir le profil</button>
+              <NavLink to={`/user/${projectCreator.id}`} className="rounded-md p-2 border border-white float-right">Voir le profil</NavLink>
             </div>
           </div>
         </div>
