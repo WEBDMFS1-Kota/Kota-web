@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import dayjs from 'dayjs';
 import uploadImage from '../services/S3Service';
 import { updateUserInfos } from '../store/userSlice';
 
@@ -13,6 +14,7 @@ function UserSettings() {
   const [avatar, setAvatar] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
+  const [birthDate, setBirthdate] = useState('');
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +36,7 @@ function UserSettings() {
     const body = JSON.stringify({
       ...(firstname !== userInfos.firstname && { firstname }),
       ...(lastname !== userInfos.lastname && { lastname }),
+      ...(birthDate !== userInfos.birthDate && { birthDate }),
       ...(pseudo !== userInfos.pseudo && { pseudo }),
       ...(email !== userInfos.email && { email }),
       ...(avatar !== userInfos.avatar && { avatar }),
@@ -70,6 +73,7 @@ function UserSettings() {
       setAvatar(response[0].avatar);
       setFirstname(response[0].firstname);
       setLastname(response[0].lastname);
+      setBirthdate(dayjs(response[0].birthDate).format('YYYY-MM-DD'));
       setEmail(response[0].email);
       setPseudo(response[0].pseudo);
       setGithubProfileUrl(response[0].githubprofileurl);
@@ -148,6 +152,24 @@ function UserSettings() {
                       />
                     </label>
                   </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor="birthdate"
+                    className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  >
+                    Birth date
+                    <input
+                      type="date"
+                      name="birthdate"
+                      id="birthdate"
+                      value={birthDate}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                      placeholder="2022-12-18"
+                      onChange={(e) => setBirthdate(e.target.value)}
+                      required=""
+                    />
+                  </label>
                 </div>
                 <div>
                   <label

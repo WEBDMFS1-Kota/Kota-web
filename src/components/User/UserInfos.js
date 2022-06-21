@@ -33,10 +33,15 @@ function UserInfos(props) {
                 {user.lastname}
               </div>
             </div>
-            <div className="flex flex-row">
-              <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-500/80" icon={faCakeCandles} />
-              <div className="text-xs text-gray-400/80 hover:text-gray-400">{dayjs(user.birthDate).format('DD / MM / YYYY')}</div>
-            </div>
+            {
+              user.birthDate
+                && (
+                <div className="flex flex-row">
+                  <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-500/80" icon={faCakeCandles} />
+                  <div className="text-xs text-gray-400/80 hover:text-gray-400">{dayjs(user.birthDate).format('DD / MM / YYYY')}</div>
+                </div>
+                )
+            }
             <div className="flex flex-row">
               <svg
                 className="mr-2 h-4 w-4 fill-gray-400/80"

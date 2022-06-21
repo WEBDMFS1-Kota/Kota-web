@@ -10,6 +10,7 @@ function Register() {
   const [avatar, setAvatar] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
+  const [birthDate, setBirthdate] = useState('');
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,6 +43,7 @@ function Register() {
       body: JSON.stringify({
         avatar,
         pseudo,
+        birthDate,
         firstname,
         lastname,
         email,
@@ -140,6 +142,23 @@ function Register() {
                 />
               </label>
             </div>
+          </div>
+          <div>
+            <label
+              htmlFor="firstname"
+              className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+            >
+              Birth date
+              <input
+                type="date"
+                name="birthdate"
+                id="birthdate"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                placeholder="2022-12-18"
+                onChange={(e) => setBirthdate(e.target.value)}
+                required=""
+              />
+            </label>
           </div>
           <div>
             <label
