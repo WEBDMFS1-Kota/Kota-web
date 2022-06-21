@@ -34,7 +34,7 @@ function Home() {
       <div className="flex justify-center">
         <div className="bg-gray-700 mt-6 rounded shadow-xl py-3 flex justify-center w-96">
           <div className="flex">
-            <button type="button" className="rounded-xl hover:bg-gray-600 py-1.5 px-2.5 mr-4" onClick={() => setListMode('hot')}>
+            <button type="button" className={`${listMode === 'hot' ? 'bg-gray-400 ' : ''}rounded-xl hover:bg-gray-600 py-1.5 px-2.5 mr-4`} onClick={() => setListMode('hot')}>
               <div className="flex items-center justify-center">
                 <span className="text-sm font-medium text-white">
                   <FontAwesomeIcon className="mr-3" icon={faHotjar} />
@@ -42,7 +42,7 @@ function Home() {
                 </span>
               </div>
             </button>
-            <button type="button" className="rounded-xl hover:bg-gray-600 py-1.5 px-2.5 ml-4" onClick={() => setListMode('top')}>
+            <button type="button" className={`${listMode === 'top' ? 'bg-gray-400 ' : ''}rounded-xl hover:bg-gray-600 py-1.5 px-2.5 ml-4`} onClick={() => setListMode('top')}>
               <div className="flex items-center justify-center">
                 <span className="text-sm font-medium text-white">
                   <FontAwesomeIcon className="mr-3" icon={faRankingStar} />
