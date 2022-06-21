@@ -1,9 +1,10 @@
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import uploadImage from '../services/S3Service';
+import { updateUserInfos } from '../store/userSlice';
 
 function UserSettings() {
   const userID = useSelector((state) => state.user.userID);
@@ -19,7 +20,11 @@ function UserSettings() {
   const [githubprofileurl, setGithubProfileUrl] = useState('');
   const [userInfosLoading, setUserInfosLoading] = useState(true);
 
+  const storedPseudo = useSelector((state) => state.user.pseudo);
+  const storedAvatar = useSelector((state) => state.user.avatar);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function saveUserChanges() {
     if (confirmPassword !== password) {
@@ -48,7 +53,12 @@ function UserSettings() {
 
     const request = await fetch(`https://kota-api-prod.herokuapp.com/users?id=${userID}`, requestOptions);
     if (request.ok) {
-      console.log('');
+      if (pseudo !== storedPseudo || avatar !== storedAvatar) {
+        dispatch(updateUserInfos({
+          ...(pseudo !== storedPseudo && { pseudo }),
+          ...(avatar !== storedAvatar && { avatar }),
+        }));
+      }
     }
   }
 
