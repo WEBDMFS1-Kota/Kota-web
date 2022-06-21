@@ -13,7 +13,7 @@ import AddProject from './routes/AddProject';
 import NotFoundError from './routes/errors/404';
 import ForgotPassword from './routes/ForgotPassword';
 import Login from './routes/Login';
-import Profile from './routes/Profile';
+import User from './routes/User';
 import Project from './routes/Project';
 import Home from './routes/Home';
 import Register from './routes/Register';
@@ -35,9 +35,12 @@ root.render(
           <Route path="register" element={<Register />} />
           <Route path="forgotPassword" element={<ForgotPassword />} />
           <Route path="resetPassword" element={<ResetPassword />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="project">
+          <Route path="user">
             <Route index element={<Navigate to="/" replace />} />
+            <Route path="notfound" element={<NotFoundError />} />
+            <Route path=":userID" element={<User />} />
+          </Route>
+          <Route path="project">
             <Route path="add" element={<AddProject />} />
             <Route path="notfound" element={<NotFoundError />} />
             <Route path=":projectID" element={<Project />} />
