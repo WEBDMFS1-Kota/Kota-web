@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import jwtDecode from 'jwt-decode';
 /* eslint-disable  no-param-reassign */
 
 export const userSlice = createSlice({
@@ -6,11 +7,14 @@ export const userSlice = createSlice({
   initialState: {
     isLogged: false,
     token: null,
+    userID: null,
   },
   reducers: {
     login: (state, action) => {
       state.token = action.payload;
       state.isLogged = true;
+      const tokenDecoded = jwtDecode(action.payload);
+      state.userID = tokenDecoded.userId;
     },
     logout: (state) => {
       state.token = null;

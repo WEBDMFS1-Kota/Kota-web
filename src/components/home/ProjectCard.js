@@ -8,9 +8,13 @@ function projectCard(props) {
   return (
     <div className="grid grid-cols-1 my-2 mx-12 justify-items-center">
       <div className="bg-gray-700 text-white w-96 rounded-lg overflow-hidden shadow-xl my-2">
-        {project.image && <img className="w-full" src={project.image} alt={`project-${project.id}`} />}
+        <a href={`/project/${project.id}`}>
+          {project.image && <img className="w-full" src={project.image} alt={`project-${project.id}`} />}
+        </a>
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{project.title}</div>
+          <a href={`/project/${project.id}`}>
+            <div className="font-bold text-xl mb-2 hover:underline">{project.title}</div>
+          </a>
           <p className="text-grey-darker text-base hidden">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla!
           </p>
