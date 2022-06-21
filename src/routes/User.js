@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import {
   faUser, faCakeCandles, faArrowDown, faArrowUp, faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 
 function User() {
+  const { userID } = useParams();
+  const personalUserID = useSelector((state) => state.user.userID);
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  async function fetchUserInfos() {
+    const request = await fetch(`https://kota-api-prod.herokuapp.com/users?userId=${userID}`, { method: 'GET' });
+    if (request.status === 200) {
+      const response = await request.json();
+      setUser(response[0]);
+    } else {
+      navigate('/user/notfound', { replace: true });
+    }
+  }
+
+  useEffect(() => {
+    fetchUserInfos().then(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (<div>Loading</div>);
+  }
+
   return (
     <>
       <div className="mx-20 my-10 grid">
@@ -13,22 +41,26 @@ function User() {
           <div className="relative">
             <img
               className="w-40 h-40 rounded-full object-cover"
-              src="https://api.lorem.space/image/face?w=150&h=150"
+              src={user.avatar ? user.avatar : `${process.env.PUBLIC_URL}/default-avatar.jpg`}
               alt="User"
             />
           </div>
           <div className="flex flex-col px-6">
             <div className="flex h-8 flex-row">
-              <h2 className="text-lg font-semibold text-white">Username</h2>
+              <h2 className="text-lg font-semibold text-white">{user.pseudo}</h2>
             </div>
             <div className="my-2 flex flex-row space-x-2">
               <div className="flex flex-row">
                 <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-500/80" icon={faUser} />
-                <div className="text-xs text-gray-400/80 hover:text-gray-400">First name Last name</div>
+                <div className="text-xs text-gray-400/80 hover:text-gray-400">
+                  {user.firstname}
+                  {' '}
+                  {user.lastname}
+                </div>
               </div>
               <div className="flex flex-row">
                 <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-500/80" icon={faCakeCandles} />
-                <div className="text-xs text-gray-400/80 hover:text-gray-400">11/04/2000</div>
+                <div className="text-xs text-gray-400/80 hover:text-gray-400">{dayjs(user.birthDate).format('DD / MM / YYYY')}</div>
               </div>
               <div className="flex flex-row">
                 <svg
@@ -43,12 +75,17 @@ function User() {
                   />
                 </svg>
 
-                <div className="text-xs text-gray-400/80 hover:text-gray-400">john.doe@doe.com</div>
+                <div className="text-xs text-gray-400/80 hover:text-gray-400">{user.email}</div>
               </div>
-              <div className="flex flex-row">
-                <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-500/80" icon={faGithub} />
-                <a href="https://github.com/Damokless" className="text-xs text-gray-400/80 hover:text-gray-400">Github profile</a>
-              </div>
+              {
+                user.githubprofileurl
+                  && (
+                  <div className="flex flex-row">
+                    <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-500/80" icon={faGithub} />
+                    <a href="https://github.com/Damokless" className="text-xs text-gray-400/80 hover:text-gray-400">Github profile</a>
+                  </div>
+                  )
+              }
             </div>
             <div className="mt-2 flex flex-row items-center space-x-5">
               <a
@@ -73,16 +110,21 @@ function User() {
               </a>
             </div>
           </div>
-          <div className="w-100 flex flex-grow flex-col items-end justify-start">
-            <div className="flex flex-row space-x-3">
-              <button
-                type="button"
-                className="flex text-gray-400 rounded-md border-2 border-blue-400/80 py-2 px-4 transition-all duration-150 ease-in-out hover:bg-blue-600 hover:text-white"
-              >
-                Edit profile
-              </button>
-            </div>
-          </div>
+          {
+            personalUserID === user.id
+              && (
+              <div className="w-100 flex flex-grow flex-col items-end justify-start">
+                <div className="flex flex-row space-x-3">
+                  <NavLink
+                    to="/settings"
+                    className="flex text-gray-400 rounded-md border-2 border-blue-400/80 py-2 px-4 transition-all duration-150 ease-in-out hover:bg-blue-600 hover:text-white"
+                  >
+                    Edit profile
+                  </NavLink>
+                </div>
+              </div>
+              )
+          }
         </div>
       </div>
       <div className="grid grid-cols-4 my-10 mx-12 justify-items-center" id="projects">

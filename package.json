@@ -15,6 +15,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "dayjs": "^1.11.3",
     "easymde": "^2.16.0",
     "github-markdown-css": "^5.1.0",
     "jwt-decode": "^3.1.2",
