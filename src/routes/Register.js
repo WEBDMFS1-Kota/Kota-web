@@ -3,30 +3,51 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import uploadImage from '../services/S3Service';
 import { login } from '../store/userSlice';
 
 function Register() {
+  const [avatar, setAvatar] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [githubprofileurl, setGithubProfileUrl] = useState('');
+  const [rememberMe, isRememberMe] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  function selectImage() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.jpg,.jpeg,.png,.svg,.webp,.gif,.avif';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+
+      uploadImage('avatar', file).then((imageURL) => {
+        if (imageURL) {
+          setAvatar(imageURL);
+        }
+      });
+    };
+    input.click();
+  }
 
   async function createAccount() {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       body: JSON.stringify({
-        pseudo: `${pseudo}`,
-        firstname: `${firstname}`,
-        lastname: `${lastname}`,
-        email: `${email}`,
-        password: `${password}`,
-        githubprofileurl: `${githubprofileurl}`,
+        avatar,
+        pseudo,
+        firstname,
+        lastname,
+        email,
+        password,
+        githubprofileurl,
+        rememberMe,
       }),
     };
     const response = await fetch('https://kota-api-prod.herokuapp.com/signup', requestOptions);
@@ -51,9 +72,34 @@ function Register() {
               Avatar
               <input type="hidden" name="avatar" id="avatar" />
             </label>
-            <div className="rounded-full h-24 w-24 bg-gray-500 mx-auto flex items-center justify-center">
-              <FontAwesomeIcon className="" icon={faCamera} size="2xl" />
-            </div>
+            {
+                !avatar
+                && (
+                // eslint-disable-next-line max-len
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+                <div
+                  className="rounded-full h-36 w-36 bg-gray-600 hover:bg-gray-700 mx-auto flex items-center justify-center my-auto"
+                  onClick={selectImage}
+                >
+                  <FontAwesomeIcon className="" icon={faCamera} size="2xl" />
+                </div>
+                )
+            }
+            {
+                avatar
+                && (
+                <div className="relative">
+                  <div className="absolute inset-0 z-10 rounded-full h-36 w-36 bg-gray-700 text-center flex flex-col items-center justify-center opacity-0 hover:opacity-100 bg-opacity-90 duration-300">
+                    <FontAwesomeIcon className="" icon={faCamera} size="2xl" />
+                  </div>
+                  <div className="relative">
+                    <div className="h-48 flex flex-wrap content-center">
+                      <img className="rounded-full h-36 w-36 mx-auto my-auto" src={avatar} alt="userAvatar" />
+                    </div>
+                  </div>
+                </div>
+                )
+            }
           </div>
           <div className="grid gap-4 grid-cols-2">
             <div>
@@ -198,7 +244,7 @@ function Register() {
             </div>
             <div className="text-sm ml-3">
               <label
-                htmlFor="remember"
+                htmlFor="cgu"
                 className="font-medium text-gray-900 dark:text-gray-300"
               >
                 You agree with our general terms you can find
@@ -206,6 +252,26 @@ function Register() {
                 <a href="https://www.termsandcondiitionssample.com/live.php?token=MTnI9Z8q7MrnYYLecv1nmjSQRfwtZT94" target="_blank" rel="noreferrer" className="text-blue-700 hover:underline dark:text-blue-500">here</a>
                 {' '}
                 <span className="text-red-500">*</span>
+              </label>
+            </div>
+          </div>
+          <div className="flex items-start">
+            <div className="flex items-center h-5">
+              <input
+                id="remember"
+                aria-describedby="remember"
+                type="checkbox"
+                className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                onChange={() => isRememberMe(!rememberMe)}
+              />
+            </div>
+            <div className="text-sm ml-3">
+              {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+              <label
+                htmlFor="remember"
+                className="font-medium text-gray-900 dark:text-gray-300"
+              >
+                Remember me
               </label>
             </div>
           </div>
