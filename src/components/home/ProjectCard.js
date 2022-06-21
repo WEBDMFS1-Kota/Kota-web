@@ -1,32 +1,40 @@
 import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 import React from 'react';
 
 function projectCard(props) {
   const { project } = props;
+  const isLogged = useSelector((state) => state.user.isLogged);
+  const token = useSelector((state) => state.user.token);
+  const userId = useSelector((state) => state.user.userID);
 
   async function upVote() {
     const options = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({
-        voterId: 1,
+        voterId: userId,
         value: 1,
       }),
     };
-    await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+    if (isLogged) {
+      await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+    }
   }
 
   async function downVote() {
     const options = {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({
-        voterId: 1,
+        voterId: userId,
         value: -1,
       }),
     };
-    await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+    if (isLogged) {
+      await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+    }
   }
 
   return (
