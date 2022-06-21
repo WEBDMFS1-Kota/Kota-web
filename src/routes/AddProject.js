@@ -36,6 +36,7 @@ function AddProject() {
   const [projectTitle, setProjectTitle] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [globalTags, setGlobalTags] = useState([]);
+  const [projectTags, setProjectTags] = useState([]);
 
   const ProjectDescChange = useCallback((value) => {
     setProjectDescription(value);
@@ -60,9 +61,29 @@ function AddProject() {
     fetchTags();
   }, []);
 
+  function loadMDFile() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.md,.txt';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+
+      const reader = new FileReader();
+      reader.readAsText(file, 'UTF-8');
+
+      // here we tell the reader what to do when it's done reading...
+      reader.onload = (readerEvent) => {
+        const content = readerEvent.target.result; // this is the content!
+        setProjectDescription(content);
+      };
+    };
+    input.click();
+  }
+
   async function createProject() {
     console.log(projectTitle);
     console.log(projectDescription);
+    console.log(projectTags);
   }
 
   return (
@@ -75,7 +96,7 @@ function AddProject() {
         </div>
         <div className="my-10">
           <div className="text-right">
-            <button type="button" className="mx-2 p-2 border-2 border-white rounded-lg">
+            <button type="button" className="mx-2 p-2 border-2 border-white rounded-lg" onClick={loadMDFile}>
               Import a README file
             </button>
             <button type="button" className="mx-2 p-2 border-2 border-white rounded-lg">
@@ -121,6 +142,8 @@ function AddProject() {
           </h1>
           <Select
             isMulti
+            closeMenuOnSelect={false}
+            onChange={(e) => setProjectTags(e)}
             options={globalTags}
             styles={customStyles}
           />
