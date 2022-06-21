@@ -90,11 +90,16 @@ function UserInfos(props) {
                 <div className="mt-2 text-sm text-gray-400">Projects</div>
               </a>
             </div>
-            <div>
-              <NavLink to="/project/add">
-                <img src={`${process.env.PUBLIC_URL}/bouton_create_project.jpg`} alt="creatProjectButton" />
-              </NavLink>
-            </div>
+            {
+              personalUserID === user.id
+                && (
+                <div>
+                  <NavLink to="/project/add">
+                    <img src={`${process.env.PUBLIC_URL}/bouton_create_project.jpg`} alt="creatProjectButton" />
+                  </NavLink>
+                </div>
+                )
+            }
           </div>
         </div>
         {
