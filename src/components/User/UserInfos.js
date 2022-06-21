@@ -91,7 +91,7 @@ function UserInfos(props) {
               <div className="w-100 flex flex-grow flex-col items-end justify-start">
                 <div className="flex flex-row space-x-3">
                   <NavLink
-                    to="/settings"
+                    to="/userSettings"
                     className="flex text-gray-400 rounded-md border-2 border-blue-400/80 py-2 px-4 transition-all duration-150 ease-in-out hover:bg-blue-600 hover:text-white"
                   >
                     Edit profile
