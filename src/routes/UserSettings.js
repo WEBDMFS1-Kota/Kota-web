@@ -7,26 +7,56 @@ import uploadImage from '../services/S3Service';
 
 function UserSettings() {
   const userID = useSelector((state) => state.user.userID);
+  const token = useSelector((state) => state.user.token);
+  const [userInfos, setUserInfos] = useState({});
   const [avatar, setAvatar] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [githubprofileurl, setGithubProfileUrl] = useState('');
   const [userInfosLoading, setUserInfosLoading] = useState(true);
 
   const navigate = useNavigate();
 
   async function saveUserChanges() {
-    console.log('saving changes');
-    console.log(password);
+    if (confirmPassword !== password) {
+      return;
+    }
+
+    const body = JSON.stringify({
+      ...(firstname !== userInfos.firstname && { firstname }),
+      ...(lastname !== userInfos.lastname && { lastname }),
+      ...(pseudo !== userInfos.pseudo && { pseudo }),
+      ...(email !== userInfos.email && { email }),
+      ...(avatar !== userInfos.avatar && { avatar }),
+      ...(password && { password }),
+      ...(githubprofileurl !== userInfos.githubprofileurl && { githubprofileurl }),
+    });
+
+    const requestOptions = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
+      },
+      body,
+    };
+
+    const request = await fetch(`https://kota-api-prod.herokuapp.com/users?id=${userID}`, requestOptions);
+    if (request.ok) {
+      console.log('');
+    }
   }
 
   async function fetchUserInfos() {
     const request = await fetch(`https://kota-api-prod.herokuapp.com/users?userId=${userID}`, { method: 'GET' });
     if (request.ok) {
       const response = await request.json();
+      setUserInfos(response[0]);
       setAvatar(response[0].avatar);
       setFirstname(response[0].firstname);
       setLastname(response[0].lastname);
@@ -175,6 +205,7 @@ function UserSettings() {
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       required=""
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                   </label>
                 </div>
