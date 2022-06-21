@@ -6,6 +6,7 @@ import { login } from '../store/userSlice';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, isRememberMe] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function Login() {
       body: JSON.stringify({
         email,
         password,
+        rememberMe,
       }),
     };
 
@@ -83,6 +85,7 @@ function Login() {
                   aria-describedby="remember"
                   type="checkbox"
                   className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                  onChange={() => isRememberMe(!rememberMe)}
                   required=""
                 />
               </div>
