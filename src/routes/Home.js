@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHotjar } from '@fortawesome/free-brands-svg-icons';
 import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
 import SkeletonProjectCard from '../components/home/SkeletonProjectCard';
 import ProjectCard from '../components/home/ProjectCard';
 
@@ -31,6 +32,9 @@ function Home() {
 
   return (
     <>
+      <div className="mt-10 text-right mx-5">
+        <NavLink to="/project/add" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800 disabled:hidden">Create a project</NavLink>
+      </div>
       <div className="flex justify-center">
         <div className="bg-gray-700 mt-6 rounded shadow-xl py-3 flex justify-center w-96">
           <div className="flex">
