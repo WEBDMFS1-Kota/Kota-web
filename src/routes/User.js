@@ -5,7 +5,7 @@ import {
   faUser, faCakeCandles, faArrowDown, faArrowUp, faTrashCan,
 } from '@fortawesome/free-solid-svg-icons';
 
-function Profile() {
+function User() {
   return (
     <>
       <div className="mx-20 my-10 grid">
@@ -114,4 +114,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default User;
