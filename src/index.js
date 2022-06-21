@@ -18,8 +18,9 @@ import Project from './routes/Project';
 import Home from './routes/Home';
 import Register from './routes/Register';
 import ResetPassword from './routes/ResetPassword';
+import UserSettings from './routes/UserSettings';
 import store, { persistor } from './store/index';
-import './index.css';
+import './styles/index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root'),
@@ -35,6 +36,7 @@ root.render(
           <Route path="register" element={<Register />} />
           <Route path="forgotPassword" element={<ForgotPassword />} />
           <Route path="resetPassword" element={<ResetPassword />} />
+          <Route path="userSettings" element={<UserSettings />} />
           <Route path="user">
             <Route index element={<Navigate to="/" replace />} />
             <Route path="notfound" element={<NotFoundError />} />
