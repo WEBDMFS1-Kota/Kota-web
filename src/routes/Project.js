@@ -4,10 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import 'github-markdown-css';
 import '../styles/project.css';
-import { StatusLogin } from './Home';
 
 function Project() {
-  const display = false;
   const { projectID } = useParams();
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState({});
@@ -35,7 +33,6 @@ function Project() {
   if (loading) {
     return (
       <div className="flex flex-col min-h-screen">
-        <StatusLogin islogged={display} />
         <section className="min-h-full flex flex-grow items-center justify-center">
           <h1 className="text-3xl text-white">Loading...</h1>
         </section>
@@ -45,7 +42,6 @@ function Project() {
 
   return (
     <div>
-      <StatusLogin islogged={display} />
       <section className="text-white bg-gray-900">
         <div className="w-1/2 mx-auto">
           <div className="py-10 text-center">

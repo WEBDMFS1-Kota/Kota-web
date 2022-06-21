@@ -31,11 +31,8 @@ async function uploadImage(folderPath, file) {
     Body: file,
   };
 
-  console.log(uploadParams);
-
   try {
-    const data = await uploadInterface.send(new PutObjectCommand(uploadParams));
-    console.log(data);
+    await uploadInterface.send(new PutObjectCommand(uploadParams));
     return `https://kota-s3-prod.s3.eu-west-3.amazonaws.com/${fileKey}`;
   } catch (err) {
     console.error('There was an error uploading your photo: ', err.message);

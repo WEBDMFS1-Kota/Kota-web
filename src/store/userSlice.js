@@ -8,6 +8,8 @@ export const userSlice = createSlice({
     isLogged: false,
     token: null,
     userID: null,
+    pseudo: '',
+    avatar: '',
   },
   reducers: {
     login: (state, action) => {
@@ -15,10 +17,13 @@ export const userSlice = createSlice({
       state.isLogged = true;
       const tokenDecoded = jwtDecode(action.payload);
       state.userID = tokenDecoded.userId;
+      state.pseudo = tokenDecoded.pseudo;
+      state.avatar = tokenDecoded.avatar ? tokenDecoded.avatar : `${process.env.PUBLIC_URL}/default-avatar.jpg`;
     },
     logout: (state) => {
       state.token = null;
       state.isLogged = false;
+      state.userId = null;
     },
   },
 });

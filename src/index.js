@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import Navbar from './components/Navbar';
 import AddProject from './routes/AddProject';
 import NotFoundError from './routes/errors/404';
 import ForgotPassword from './routes/ForgotPassword';
@@ -27,6 +28,7 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />

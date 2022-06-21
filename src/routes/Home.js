@@ -2,20 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHotjar } from '@fortawesome/free-brands-svg-icons';
 import { faRankingStar } from '@fortawesome/free-solid-svg-icons';
-import { useSelector } from 'react-redux';
 import SkeletonProjectCard from '../components/home/SkeletonProjectCard';
 import ProjectCard from '../components/home/ProjectCard';
-
-import NavbarBeforeLogin from '../components/NavbarBeforeLogin';
-import NavbarAfterLogin from '../components/NavbarAfterLogin';
-
-export function StatusLogin() {
-  const isLogged = useSelector((state) => state.user.isLogged);
-  if (isLogged) {
-    return <NavbarAfterLogin />;
-  }
-  return <NavbarBeforeLogin />;
-}
 
 const requestOptions = {
   method: 'GET',
@@ -43,7 +31,6 @@ function Home() {
 
   return (
     <>
-      <StatusLogin />
       <div className="flex justify-center">
         <div className="bg-gray-700 mt-6 rounded shadow-xl py-3 flex justify-center w-96">
           <div className="flex">
