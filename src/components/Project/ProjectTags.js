@@ -5,8 +5,8 @@ function ProjectTags(props) {
   return (
     <div className="flex">
       {
-          projectTags.map((tag) => (
-            <div className="py-1 px-3 mx-1 bg-blue-500 rounded-full">
+          projectTags.map((tag, index) => (
+            <div className="py-1 px-3 mx-1 bg-blue-500 rounded-full" key={`projectTagsSkeleton-${index - 1}`}>
               <p>{tag.name}</p>
             </div>
           ))
