@@ -176,6 +176,8 @@ function ModifyProject() {
     const body = JSON.stringify({
       id: projectID,
       ...(projectTitle !== project.title && { title: projectTitle }),
+      ...(projectShortDescription !== project.shortDescription
+          && { shortDescription: projectShortDescription }),
       ...(projectDescription !== project.description && { description: projectDescription }),
       ...(projectImage !== project.image && { image: projectImage }),
     });
