@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { useSelector } from 'react-redux';
-import { useParams, useNavigate, NavLink } from 'react-router-dom';
-import remarkGfm from 'remark-gfm';
+import { useParams, useNavigate } from 'react-router-dom';
 import 'github-markdown-css';
 import '../styles/project.css';
+import ProjectContent from '../components/Project/ProjectContent';
+import ProjectCreator from '../components/Project/ProjectCreator';
+import ProjectTags from '../components/Project/ProjectTags';
+import ProjectContentSkeleton from '../components/Project/skeletons/ProjectContentSkeleton';
+import ProjectCreatorSkeleton from '../components/Project/skeletons/ProjectCreatorSkeleton';
+import ProjectTagsSkeleton from '../components/Project/skeletons/ProjectTagsSkeleton';
 
 function Project() {
   const { projectID } = useParams();
-  const userID = useSelector((state) => state.user.userID);
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState({});
   const [projectCreator, setProjectCreator] = useState({});
   const [projectTags, setProjectTags] = useState([]);
+
+  const [projectCreatorLoading, setProjectCreatorLoading] = useState(true);
+  const [projectTagsLoading, setProjectTagsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -35,8 +40,8 @@ function Project() {
     if (request.status === 200) {
       const response = await request.json();
       setProject(response);
-      await fetchCreatorInfo();
-      await fetchProjectTags();
+      fetchCreatorInfo().then(() => setProjectCreatorLoading(false));
+      fetchProjectTags().then(() => setProjectTagsLoading(false));
     } else {
       navigate('/project/notfound', { replace: true });
     }
@@ -58,60 +63,41 @@ function Project() {
 
   return (
     <div>
-      <section className="text-white bg-gray-900 mt-5">
-        <div className="w-1/2 mx-auto">
+      <section className="w-full px-4 md:px-0 md:w-1/2 mx-auto text-black dark:text-white mt-5">
+        {
+          !loading
+            ? (
+              <ProjectContent
+                project={project}
+                projectTags={projectTags}
+                projectTagsLoading={projectTagsLoading}
+                creatorID={projectCreator.id}
+              />
+            )
+            : (
+              <ProjectContentSkeleton />
+            )
+        }
+        <div className="my-5">
           {
-            project.image
-              && (
-              <div>
-                <img src={project.image} alt="projectMain" />
-              </div>
+            !projectTagsLoading
+              ? (
+                <ProjectTags projectTags={projectTags} />
+              )
+              : (
+                <ProjectTagsSkeleton />
               )
           }
-          <div className="my-10 text-center">
-            <h1 className="text-5xl">{project.title}</h1>
-          </div>
-          <div className="text-center text-lg">
-            <p>{project.shortDescription}</p>
-          </div>
-          <div className="flex space-x-1 my-2">
-            {
-              projectTags.map((tag) => (
-                <div className="py-1 px-3 bg-blue-500 rounded-full">
-                  <p>{tag.name}</p>
-                </div>
-              ))
-            }
-          </div>
-          {
-              projectCreator.id === userID
-              && (
-              <div className="my-5">
-                <NavLink to={`/project/${projectID}/modify`} className="p-2 border-2 border-white rounded-lg">Modify</NavLink>
-              </div>
-              )
-          }
-          <div>
-            <ReactMarkdown
-                /* eslint-disable-next-line react/no-children-prop */
-              children={project.description}
-              remarkPlugins={[remarkGfm]}
-              className="markdown-body"
-            />
-          </div>
-          <div className="grid grid-cols-4 mt-10 px-10 pb-10">
-            <div className="col-span-1">
-              <img className="border-2 border-black rounded-full h-auto w-24" src={projectCreator.avatar || `${process.env.PUBLIC_URL}/default-avatar.jpg`} alt="avatar" />
-            </div>
-            <div className="col-span-2 my-auto">
-              <h3 className="text-3xl mb-2">{projectCreator.pseudo}</h3>
-              <h6 className="text-md italic">{projectCreator.description}</h6>
-            </div>
-            <div className="my-auto">
-              <NavLink to={`/user/${projectCreator.id}`} className="rounded-md p-2 border border-white float-right">Voir le profil</NavLink>
-            </div>
-          </div>
         </div>
+        {
+          !projectCreatorLoading
+            ? (
+              <ProjectCreator projectCreator={projectCreator} />
+            )
+            : (
+              <ProjectCreatorSkeleton />
+            )
+        }
       </section>
     </div>
   );
