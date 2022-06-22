@@ -51,17 +51,17 @@ function Project() {
     <div>
       <section className="text-white bg-gray-900">
         <div className="w-1/2 mx-auto">
-          <div className="py-10 text-center">
-            <h1 className="text-6xl">{project.title}</h1>
-            {
-                projectCreator.id === userID
-                && (
-                <div className="float-right">
-                  <NavLink to={`/project/${projectID}/modify`} className="mx-2 p-2 border-2 border-white rounded-lg">Modify</NavLink>
-                </div>
-                )
-            }
+          <div className="my-10 text-center">
+            <h1 className="text-5xl">{project.title}</h1>
           </div>
+          {
+              projectCreator.id === userID
+              && (
+              <div className="py-5">
+                <NavLink to={`/project/${projectID}/modify`} className="mx-2 p-2 border-2 border-white rounded-lg">Modify</NavLink>
+              </div>
+              )
+          }
           <div>
             <ReactMarkdown
                 /* eslint-disable-next-line react/no-children-prop */
@@ -75,7 +75,8 @@ function Project() {
               <img className="border-2 border-black rounded-full h-auto w-24" src={projectCreator.avatar || `${process.env.PUBLIC_URL}/default-avatar.jpg`} alt="avatar" />
             </div>
             <div className="col-span-2 my-auto">
-              <h3 className="text-3xl">{projectCreator.pseudo}</h3>
+              <h3 className="text-3xl mb-2">{projectCreator.pseudo}</h3>
+              <h6 className="text-md italic">{projectCreator.description}</h6>
             </div>
             <div className="my-auto">
               <NavLink to={`/user/${projectCreator.id}`} className="rounded-md p-2 border border-white float-right">Voir le profil</NavLink>
