@@ -38,6 +38,7 @@ const customStyles = {
 function AddProject() {
   const [projectTitle, setProjectTitle] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
+  const [projectShortDescription, setProjectShortDescription] = useState('');
   const [projectImage, setProjectImage] = useState('');
   const [globalTags, setGlobalTags] = useState([]);
   const [projectTags, setProjectTags] = useState([]);
@@ -117,6 +118,8 @@ function AddProject() {
       },
       body: JSON.stringify({
         title: projectTitle,
+        image: projectImage,
+        shortDescription: projectShortDescription,
         description: projectDescription,
         projectTags: sentProjectTags,
       }),
@@ -145,7 +148,7 @@ function AddProject() {
             <button type="button" className="mx-2 p-2 border-2 border-white rounded-lg" onClick={loadMDFile}>
               Import a README file
             </button>
-            <button type="button" className="mx-2 p-2 border-2 border-white rounded-lg">
+            <button type="button" className="mx-2 p-2 border-2 border-white rounded-lg hidden">
               Preview result
             </button>
             <button
@@ -167,11 +170,40 @@ function AddProject() {
               type="text"
               name="projectTitle"
               id="projectTitle"
+              maxLength="50"
               className="bg-transparent border border-black text-black sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-white dark:placeholder-gray-200 dark:text-white mt-3"
               placeholder="Name of the project"
               onChange={(e) => setProjectTitle(e.target.value)}
               required=""
             />
+            <span className="ml-2 text-sm italic">
+              {projectDescription.length}
+              {' '}
+              / 50 characters
+            </span>
+          </label>
+        </div>
+        <div className="mt-4 w-full">
+          <label
+            htmlFor="projectShortDescription"
+            className="text-lg font-medium text-black block dark:text-white"
+          >
+            Short description
+            <input
+              type="text"
+              name="projectShortDescription"
+              id="projectShortDescription"
+              maxLength="100"
+              className="bg-transparent border border-black text-black sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-white dark:placeholder-gray-200 dark:text-white mt-3"
+              placeholder="This is a project for..."
+              onChange={(e) => setProjectShortDescription(e.target.value)}
+              required=""
+            />
+            <span className="ml-2 text-sm italic">
+              {projectShortDescription.length}
+              {' '}
+              / 100 characters
+            </span>
           </label>
         </div>
         <div className="mt-4 w-full">
@@ -181,7 +213,12 @@ function AddProject() {
             Image of the project (optional)
           </h1>
           <div className="w-full text-center">
-            <img src={projectImage} alt="projectImage" className="mb-4 mx-auto" />
+            {
+              projectImage
+                && (
+                <img src={projectImage} alt="projectImage" className="mb-4 mx-auto h-auto w-1/2" />
+                )
+            }
             <button type="button" className="mx-auto p-2 border-2 border-white rounded-lg" onClick={selectImage}>Upload image</button>
           </div>
           <input type="hidden" onChange={(e) => setProjectImage(e.target.value)} />
