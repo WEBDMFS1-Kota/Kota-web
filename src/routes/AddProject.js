@@ -36,6 +36,7 @@ const customStyles = {
 };
 
 function AddProject() {
+  const isLogged = useSelector((state) => state.user.isLogged);
   const [projectTitle, setProjectTitle] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [projectShortDescription, setProjectShortDescription] = useState('');
@@ -132,6 +133,7 @@ function AddProject() {
   }
 
   useEffect(() => {
+    if (!isLogged) navigate('/login', { replace: true });
     fetchTags();
   }, []);
 

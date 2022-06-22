@@ -38,6 +38,7 @@ const customStyles = {
 
 function ModifyProject() {
   const { projectID } = useParams();
+  const isLogged = useSelector((state) => state.user.isLogged);
   const userID = useSelector((state) => state.user.userID);
   const [projectTitle, setProjectTitle] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
@@ -198,6 +199,7 @@ function ModifyProject() {
   }
 
   useEffect(() => {
+    if (!isLogged) navigate('/login', { replace: true });
     fetchCreatorInfo();
     fetchTags();
     fetchProjectTags();

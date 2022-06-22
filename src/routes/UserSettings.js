@@ -8,6 +8,7 @@ import uploadImage from '../services/S3Service';
 import { updateUserInfos } from '../store/userSlice';
 
 function UserSettings() {
+  const isLogged = useSelector((state) => state.user.isLogged);
   const userID = useSelector((state) => state.user.userID);
   const token = useSelector((state) => state.user.token);
   const [userInfos, setUserInfos] = useState({});
@@ -102,6 +103,7 @@ function UserSettings() {
   }
 
   useEffect(() => {
+    if (!isLogged) navigate('/login', { replace: true });
     fetchUserInfos().then(() => setUserInfosLoading(false));
   }, []);
 
