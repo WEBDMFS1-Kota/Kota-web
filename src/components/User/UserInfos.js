@@ -5,9 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import UserTags from './UserTags';
+import UserTagsSkeleton from './UserTagsSkeleton';
 
 function UserInfos(props) {
-  const { user, projectsNumber } = props;
+  const {
+    user, projectsNumber, userTagsLoading, userTags,
+  } = props;
   const personalUserID = useSelector((state) => state.user.userID);
 
   return (
@@ -69,6 +73,17 @@ function UserInfos(props) {
           </div>
           <div className="text-white py-2 ml-2">
             <p>{user.description}</p>
+          </div>
+          <div className="flex">
+            {
+              !userTagsLoading
+                ? (
+                  <UserTags userTags={userTags} />
+                )
+                : (
+                  <UserTagsSkeleton />
+                )
+            }
           </div>
           <div className="flex flex-row">
             <div className="mt-2 flex flex-row items-center space-x-5">

@@ -6,35 +6,7 @@ import 'easymde/dist/easymde.min.css';
 import Select from 'react-select';
 import uploadImage from '../services/S3Service';
 import isEqual from '../utils';
-
-const customStyles = {
-  menu: (provided) => ({
-    ...provided,
-    backgroundColor: 'transparent',
-    color: 'white',
-    borderColor: 'white',
-  }),
-
-  container: (provided) => ({
-    ...provided,
-    color: 'transparent',
-  }),
-
-  control: (provided) => ({
-    ...provided,
-    backgroundColor: 'transparent',
-  }),
-
-  placeholder: (provided) => ({
-    ...provided,
-    color: 'white',
-  }),
-
-  option: (provided, { isFocused }) => ({
-    ...provided,
-    color: isFocused ? 'black' : 'white',
-  }),
-};
+import customStyles from '../styles/reactSelect';
 
 function ModifyProject() {
   const { projectID } = useParams();
