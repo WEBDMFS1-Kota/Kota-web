@@ -12,9 +12,17 @@ function Project() {
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState({});
   const [projectCreator, setProjectCreator] = useState({});
+  const [projectTags, setProjectTags] = useState([]);
 
   const navigate = useNavigate();
 
+  async function fetchProjectTags() {
+    const response = await fetch(`https://kota-api-prod.herokuapp.com/projects/${projectID}/tags`, { method: 'GET' });
+    if (response.ok) {
+      const tags = await response.json();
+      setProjectTags(tags);
+    }
+  }
   async function fetchCreatorInfo() {
     const request = await fetch(`https://kota-api-prod.herokuapp.com/users/${projectID}/projectCreator`, { method: 'GET' });
     if (request.ok) {
@@ -28,6 +36,7 @@ function Project() {
       const response = await request.json();
       setProject(response);
       await fetchCreatorInfo();
+      await fetchProjectTags();
     } else {
       navigate('/project/notfound', { replace: true });
     }
@@ -54,11 +63,23 @@ function Project() {
           <div className="my-10 text-center">
             <h1 className="text-5xl">{project.title}</h1>
           </div>
+          <div className="text-center text-lg">
+            <p>{project.shortDescription}</p>
+          </div>
+          <div className="flex space-x-1 my-2">
+            {
+              projectTags.map((tag) => (
+                <div className="py-1 px-3 bg-blue-500 rounded-full">
+                  <p>{tag.name}</p>
+                </div>
+              ))
+            }
+          </div>
           {
               projectCreator.id === userID
               && (
-              <div className="py-5">
-                <NavLink to={`/project/${projectID}/modify`} className="mx-2 p-2 border-2 border-white rounded-lg">Modify</NavLink>
+              <div className="my-5">
+                <NavLink to={`/project/${projectID}/modify`} className="p-2 border-2 border-white rounded-lg">Modify</NavLink>
               </div>
               )
           }
