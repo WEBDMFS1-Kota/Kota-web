@@ -14,6 +14,7 @@ function UserSettings() {
   const [avatar, setAvatar] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
+  const [description, setDescription] = useState('');
   const [birthDate, setBirthdate] = useState('');
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
@@ -36,6 +37,7 @@ function UserSettings() {
     const body = JSON.stringify({
       ...(firstname !== userInfos.firstname && { firstname }),
       ...(lastname !== userInfos.lastname && { lastname }),
+      ...(description !== userInfos.description && { description }),
       ...(birthDate !== userInfos.birthDate && { birthDate }),
       ...(pseudo !== userInfos.pseudo && { pseudo }),
       ...(email !== userInfos.email && { email }),
@@ -73,6 +75,7 @@ function UserSettings() {
       setAvatar(response[0].avatar);
       setFirstname(response[0].firstname);
       setLastname(response[0].lastname);
+      setDescription(response[0].description);
       setBirthdate(dayjs(response[0].birthDate).format('YYYY-MM-DD'));
       setEmail(response[0].email);
       setPseudo(response[0].pseudo);
@@ -259,7 +262,7 @@ function UserSettings() {
                   </label>
                 </div>
               </div>
-              <div className="h-full flex items-center justify-center">
+              <div className="h-full flex flex-col">
                 <div className="text-center">
                   {
                     !avatar
@@ -293,6 +296,23 @@ function UserSettings() {
                     Avatar
                     <input type="hidden" name="avatar" id="avatar" value={avatar} />
                   </label>
+                </div>
+                <div className="ml-5">
+                  {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                  <label
+                    htmlFor="description"
+                    className="text-xl font-medium text-gray-900 block mt-2 dark:text-gray-300"
+                  >
+                    Description
+                  </label>
+                  <textarea
+                    rows="11"
+                    className="resize-none bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    id="description"
+                    name="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
                 </div>
               </div>
               <div>
