@@ -31,39 +31,41 @@ function Home() {
   }, []);
 
   return (
-    <>
+    <section className="">
       <div className="mt-10 text-right mx-5">
         <NavLink to="/project/add" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800 disabled:hidden">Create a project</NavLink>
       </div>
-      <div className="flex justify-center">
-        <div className="bg-gray-700 mt-6 rounded shadow-xl py-3 flex justify-center w-96">
-          <div className="flex">
-            <button type="button" className={`${listMode === 'hot' ? 'bg-gray-400 ' : ''}rounded-xl hover:bg-gray-600 py-1.5 px-2.5 mr-4`} onClick={() => setListMode('hot')}>
-              <div className="flex items-center justify-center">
-                <span className="text-sm font-medium text-white">
-                  <FontAwesomeIcon className="mr-3" icon={faHotjar} />
-                  Hot
-                </span>
-              </div>
-            </button>
-            <button type="button" className={`${listMode === 'top' ? 'bg-gray-400 ' : ''}rounded-xl hover:bg-gray-600 py-1.5 px-2.5 ml-4`} onClick={() => setListMode('top')}>
-              <div className="flex items-center justify-center">
-                <span className="text-sm font-medium text-white">
-                  <FontAwesomeIcon className="mr-3" icon={faRankingStar} />
-                  Top
-                </span>
-              </div>
-            </button>
+      <div className="px-4 md:px-0">
+        <div className="flex justify-center">
+          <div className="bg-gray-700 mt-6 rounded shadow-xl py-3 flex justify-center w-96">
+            <div className="flex">
+              <button type="button" className={`${listMode === 'hot' ? 'bg-gray-400 ' : ''}rounded-xl hover:bg-gray-600 py-1.5 px-2.5 mr-4`} onClick={() => setListMode('hot')}>
+                <div className="flex items-center justify-center">
+                  <span className="text-sm font-medium text-white">
+                    <FontAwesomeIcon className="mr-3" icon={faHotjar} />
+                    Hot
+                  </span>
+                </div>
+              </button>
+              <button type="button" className={`${listMode === 'top' ? 'bg-gray-400 ' : ''}rounded-xl hover:bg-gray-600 py-1.5 px-2.5 ml-4`} onClick={() => setListMode('top')}>
+                <div className="flex items-center justify-center">
+                  <span className="text-sm font-medium text-white">
+                    <FontAwesomeIcon className="mr-3" icon={faRankingStar} />
+                    Top
+                  </span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
+        <div>
+          {loadingData
+              && [...Array(5)].map((value, index) => <SkeletonProjectCard key={`skeletonProject${index * 2}`} />)}
+          {!loadingData
+              && projects.map((project) => <ProjectCard key={project.id} project={project} />)}
+        </div>
       </div>
-      <div>
-        {loadingData
-            && [...Array(5)].map((value, index) => <SkeletonProjectCard key={`skeletonProject${index * 2}`} />)}
-        {!loadingData
-            && projects.map((project) => <ProjectCard key={project.id} project={project} />)}
-      </div>
-    </>
+    </section>
   );
 }
 
