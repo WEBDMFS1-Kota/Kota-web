@@ -4,8 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
+import Select from 'react-select';
 import uploadImage from '../services/S3Service';
 import { updateUserInfos } from '../store/userSlice';
+import customStyles from '../styles/reactSelect';
+import isEqual from '../utils';
 
 function UserSettings() {
   const isLogged = useSelector((state) => state.user.isLogged);
@@ -23,12 +26,73 @@ function UserSettings() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [githubprofileurl, setGithubProfileUrl] = useState('');
   const [userInfosLoading, setUserInfosLoading] = useState(true);
+  const [globalTags, setGlobalTags] = useState([]);
+  const [initialUserTags, setInitialUserTags] = useState([]);
+  const [userTags, setUserTags] = useState([]);
 
   const storedPseudo = useSelector((state) => state.user.pseudo);
   const storedAvatar = useSelector((state) => state.user.avatar);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  async function fetchTags() {
+    const response = await fetch('https://kota-api-prod.herokuapp.com/tags', { method: 'GET' });
+    if (response.ok) {
+      const tags = await response.json();
+      const tempoTagArray = [];
+      tags.forEach((tag) => {
+        tempoTagArray.push({
+          value: tag.id,
+          label: tag.name,
+        });
+      });
+      setGlobalTags(tempoTagArray);
+    }
+  }
+
+  async function fetchUserTags() {
+    const response = await fetch(`https://kota-api-prod.herokuapp.com/users/tags?userId=${userID}`, { method: 'GET' });
+    if (response.ok) {
+      const tags = await response.json();
+      setInitialUserTags(tags);
+      const tempoTagArray = [];
+      tags.forEach((tag) => {
+        tempoTagArray.push({
+          value: tag.id,
+          label: tag.name,
+        });
+      });
+      setUserTags(tempoTagArray);
+    }
+  }
+
+  async function saveUserTags() {
+    const sentUserTags = [];
+
+    userTags.forEach((projectTag) => {
+      sentUserTags.push({
+        id: projectTag.value,
+        name: projectTag.label,
+      });
+    });
+
+    if (!isEqual(sentUserTags, initialUserTags)) {
+      const requestOptions = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(sentUserTags),
+      };
+
+      const request = await fetch(`https://kota-api-prod.herokuapp.com/users/${userID}/tags`, requestOptions);
+      return request.ok;
+    }
+    return true;
+  }
 
   async function saveUserChanges() {
     if (confirmPassword !== password) {
@@ -65,6 +129,7 @@ function UserSettings() {
           ...(avatar !== storedAvatar && { avatar }),
         }));
       }
+      saveUserTags();
     }
   }
 
@@ -105,6 +170,8 @@ function UserSettings() {
   useEffect(() => {
     if (!isLogged) navigate('/login', { replace: true });
     fetchUserInfos().then(() => setUserInfosLoading(false));
+    fetchTags();
+    fetchUserTags();
   }, []);
 
   if (userInfosLoading) {
@@ -317,10 +384,23 @@ function UserSettings() {
                   />
                 </div>
               </div>
-              <div>
+              <div className="mb-32 col-span-2">
+                <h1 className="text-lg font-medium text-gray-900 block dark:text-gray-300 mb-5">
+                  Tags of the project
+                </h1>
+                <Select
+                  isMulti
+                  closeMenuOnSelect={false}
+                  value={userTags}
+                  onChange={(e) => setUserTags(e)}
+                  options={globalTags}
+                  styles={customStyles}
+                />
+              </div>
+              <div className="col-span-2 text-center">
                 <button
                   type="button"
-                  className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:hidden"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:hidden"
                   onClick={saveUserChanges}
                 >
                   Save your changes
