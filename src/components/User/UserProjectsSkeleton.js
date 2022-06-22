@@ -6,8 +6,8 @@ function UserProjectsSkeleton() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
       {
-        [...Array(4)].map(() => (
-          <div className="px-4 mt-2">
+        [...Array(4)].map((value, index) => (
+          <div className="px-4 mt-2" key={`skeletonProject${index * 2}`}>
             <div className="bg-gray-700 text-white rounded-lg overflow-hidden shadow-xl my-4">
               <div className="px-6 py-4">
                 <div className="w-2/3 h-10 bg-slate-800 animate-pulse" />
