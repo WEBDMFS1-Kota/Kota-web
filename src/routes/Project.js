@@ -58,8 +58,16 @@ function Project() {
 
   return (
     <div>
-      <section className="text-white bg-gray-900">
+      <section className="text-white bg-gray-900 mt-5">
         <div className="w-1/2 mx-auto">
+          {
+            project.image
+              && (
+              <div>
+                <img src={project.image} alt="projectMain" />
+              </div>
+              )
+          }
           <div className="my-10 text-center">
             <h1 className="text-5xl">{project.title}</h1>
           </div>
