@@ -153,7 +153,7 @@ function ModifyProject() {
       });
     });
 
-    if (isEqual(sentProjectTags, initialProjectTags)) {
+    if (!isEqual(sentProjectTags, initialProjectTags)) {
       const requestOptions = {
         method: 'PATCH',
         headers: {
@@ -161,9 +161,7 @@ function ModifyProject() {
           'Access-Control-Allow-Origin': '*',
           Authorization: `Bearer ${token}`,
         },
-        body: {
-          sentProjectTags,
-        },
+        body: JSON.stringify(sentProjectTags),
       };
 
       const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/${projectID}/tags`, requestOptions);
@@ -189,7 +187,7 @@ function ModifyProject() {
       },
       body,
     };
-    const response = await fetch('https://kota-api-prod.herokuapp.com/projects', requestOptions);
+    const response = await fetch(`https://kota-api-prod.herokuapp.com/projects/${projectID}`, requestOptions);
     if (response.ok) {
       if (await saveProjectTags()) navigate(`/project/${projectID}`, { replace: false });
     }
