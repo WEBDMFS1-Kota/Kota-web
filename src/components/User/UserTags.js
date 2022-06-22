@@ -4,7 +4,7 @@ function UserTags(props) {
   const { userTags } = props;
 
   return (
-    <div className="flex">
+    <div className="flex flex-row flex-wrap gap-y-1">
       {
           userTags.map((tag, index) => (
             <div className="py-1 px-3 mx-1 bg-blue-500 rounded-full text-white" key={`projectTagsSkeleton-${index - 1}`}>

@@ -16,20 +16,18 @@ function UserInfos(props) {
 
   return (
     <div className="px-4">
-      <div className="flex flex-row rounded-lg border border-gray-600/80 bg-gray-700 mt-6 p-6 shadow-xl">
-        <div className="relative">
-          <img
-            className="w-40 h-40 rounded-full object-cover"
-            src={user.avatar ? user.avatar : `${process.env.PUBLIC_URL}/default-avatar.jpg`}
-            alt="User"
-          />
-        </div>
-        <div className="flex flex-col px-6">
+      <div className="flex flex-col md:flex-row rounded-lg border border-gray-600/80 bg-gray-700 mt-6 p-6 shadow-xl">
+        <img
+          className="w-40 h-40 rounded-full object-cover mx-auto"
+          src={user.avatar ? user.avatar : `${process.env.PUBLIC_URL}/default-avatar.jpg`}
+          alt="User"
+        />
+        <div className="flex flex-col px-0 md:px-6">
           <div className="flex h-8 flex-row">
-            <h2 className="text-3xl font-semibold text-white">{user.pseudo}</h2>
+            <h2 className="text-3xl font-semibold text-white mx-auto md:mx-0">{user.pseudo}</h2>
           </div>
           <div className="my-2 flex flex-col">
-            <div className="flex flex-row">
+            <div className="flex my-1 flex-row">
               <FontAwesomeIcon className="mr-2 h-4 w-4 text-gray-500/80" icon={faUser} />
               <div className="text-xs text-gray-400/80 hover:text-gray-400">
                 {user.firstname}
@@ -74,22 +72,24 @@ function UserInfos(props) {
           <div className="text-white py-2 ml-2">
             <p>{user.description}</p>
           </div>
-          <div className="flex">
-            {
-              !userTagsLoading
-                ? (
-                  <UserTags userTags={userTags} />
-                )
-                : (
-                  <UserTagsSkeleton />
-                )
-            }
+          <div className="w-full">
+            <div className="">
+              {
+                !userTagsLoading
+                  ? (
+                    <UserTags userTags={userTags} />
+                  )
+                  : (
+                    <UserTagsSkeleton />
+                  )
+              }
+            </div>
           </div>
-          <div className="flex flex-row">
+          <div className="flex flex-col md:flex-row">
             <div className="mt-2 flex flex-row items-center space-x-5">
               <a
                 href="#projects"
-                className="flex h-20 w-40 flex-col items-center justify-center rounded-md border border-gray-200 transition-colors duration-100 ease-in-out hover:border-gray-400/80"
+                className="flex h-20 w-40 mx-auto md:mx-0 flex-col items-center justify-center rounded-md border border-gray-200 transition-colors duration-100 ease-in-out hover:border-gray-400/80"
               >
                 <div className="flex flex-row items-center justify-center">
                   <svg
@@ -111,7 +111,7 @@ function UserInfos(props) {
             {
               personalUserID === user.id
                 && (
-                <div>
+                <div className="mx-auto md:mx-0 mb-5 md:mb-0">
                   <NavLink to="/project/add">
                     <img src={`${process.env.PUBLIC_URL}/bouton_create_project.jpg`} alt="creatProjectButton" />
                   </NavLink>
