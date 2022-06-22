@@ -13,6 +13,7 @@ import AddProject from './routes/AddProject';
 import NotFoundError from './routes/errors/404';
 import ForgotPassword from './routes/ForgotPassword';
 import Login from './routes/Login';
+import ModifyProject from './routes/ModifyProject';
 import User from './routes/User';
 import Project from './routes/Project';
 import Home from './routes/Home';
@@ -46,6 +47,7 @@ root.render(
             <Route path="add" element={<AddProject />} />
             <Route path="notfound" element={<NotFoundError />} />
             <Route path=":projectID" element={<Project />} />
+            <Route path=":projectID/modify" element={<ModifyProject />} />
           </Route>
           <Route path="*" element={<NotFoundError />} />
         </Routes>

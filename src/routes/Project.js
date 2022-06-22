@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { useSelector } from 'react-redux';
 import { useParams, useNavigate, NavLink } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import 'github-markdown-css';
@@ -7,6 +8,7 @@ import '../styles/project.css';
 
 function Project() {
   const { projectID } = useParams();
+  const userID = useSelector((state) => state.user.userID);
   const [loading, setLoading] = useState(true);
   const [project, setProject] = useState({});
   const [projectCreator, setProjectCreator] = useState({});
@@ -51,6 +53,14 @@ function Project() {
         <div className="w-1/2 mx-auto">
           <div className="py-10 text-center">
             <h1 className="text-6xl">{project.title}</h1>
+            {
+                projectCreator.id === userID
+                && (
+                <div className="float-right">
+                  <NavLink to={`/project/${projectID}/modify`} className="mx-2 p-2 border-2 border-white rounded-lg">Modify</NavLink>
+                </div>
+                )
+            }
           </div>
           <div>
             <ReactMarkdown
