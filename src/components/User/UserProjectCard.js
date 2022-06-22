@@ -15,7 +15,7 @@ function UserProjectCard(props) {
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{project.title}</div>
           <p className="text-grey-darker text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla
+            {project.shortDescription}
           </p>
         </div>
         <div className="flex justify-between px-6 py-4 w-full">

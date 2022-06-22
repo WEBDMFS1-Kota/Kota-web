@@ -47,8 +47,8 @@ function projectCard(props) {
           <a href={`/project/${project.id}`}>
             <div className="font-bold text-xl mb-2 hover:underline">{project.title}</div>
           </a>
-          <p className="text-grey-darker text-base hidden">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla!
+          <p className="text-grey-darker text-base">
+            {project.shortDescription}
           </p>
         </div>
         <div className="flex px-6 py-4">
