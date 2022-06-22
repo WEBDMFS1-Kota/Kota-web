@@ -59,7 +59,7 @@ function Home() {
       </div>
       <div>
         {loadingData
-            && [...Array(5)].map(() => <SkeletonProjectCard />)}
+            && [...Array(5)].map((value, index) => <SkeletonProjectCard key={`skeletonProject${index * 2}`} />)}
         {!loadingData
             && projects.map((project) => <ProjectCard key={project.id} project={project} />)}
       </div>
