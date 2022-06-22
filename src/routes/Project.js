@@ -51,16 +51,6 @@ function Project() {
     fetchProjectInfos().then(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <section className="min-h-full flex flex-grow items-center justify-center">
-          <h1 className="text-3xl text-white">Loading...</h1>
-        </section>
-      </div>
-    );
-  }
-
   return (
     <div>
       <section className="w-full px-4 md:px-0 md:w-1/2 mx-auto text-black dark:text-white mt-5">
