@@ -181,11 +181,11 @@ function UserSettings() {
   }
 
   return (
-    <div className="container mx-auto">
+    <div className="container px-4 md:px-0 mx-0 md:mx-auto">
       <section>
         <div className="bg-white shadow-md border border-gray-200 rounded-lg w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
-          <form className="space-y-6" action="#">
-            <div className="grid grid-cols-2">
+          <form className="space-y-0 md:space-y-6" action="#">
+            <div className="grid md:grid-cols-2">
               <div>
                 <div className="grid gap-4 grid-cols-2">
                   <div>
@@ -331,7 +331,7 @@ function UserSettings() {
                   </label>
                 </div>
               </div>
-              <div className="h-full flex flex-col">
+              <div className="col-span-2 md:col-span-1 md:h-full flex flex-col">
                 <div className="text-center">
                   {
                     !avatar
@@ -366,7 +366,7 @@ function UserSettings() {
                     <input type="hidden" name="avatar" id="avatar" value={avatar} />
                   </label>
                 </div>
-                <div className="ml-5">
+                <div className="ml-0 md:ml-5">
                   {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                   <label
                     htmlFor="description"

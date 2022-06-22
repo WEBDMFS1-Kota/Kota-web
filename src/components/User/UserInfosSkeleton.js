@@ -3,11 +3,9 @@ import React from 'react';
 function UserInfosSkeleton() {
   return (
     <div className="px-4">
-      <div className="flex flex-row rounded-lg border border-gray-600/80 bg-gray-700 mt-6 p-6 shadow-xl">
-        <div className="relative">
-          <div className="w-40 h-40 bg-slate-800 rounded-full object-cover animate-pulse" />
-        </div>
-        <div className="flex flex-col px-6 w-1/3">
+      <div className="flex flex-col md:flex-row rounded-lg border border-gray-600/80 bg-gray-700 mt-6 p-6 shadow-xl">
+        <div className="w-40 h-40 bg-slate-800 rounded-full object-cover animate-pulse mx-auto" />
+        <div className="flex flex-col mt-4 md:mt-0 px-0 md:px-6">
           <div className="">
             <div className="w-full h-12 bg-slate-800 animate-pulse" />
           </div>

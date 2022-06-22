@@ -4,8 +4,8 @@ import React from 'react';
 
 function SkeletonProjectCard() {
   return (
-    <div className="grid grid-cols-1 my-2 mx-12 justify-items-center">
-      <div className="bg-gray-700 text-white w-96 rounded-lg overflow-hidden shadow-xl my-2">
+    <div className="grid grid-cols-1 my-2 mx-0 md:mx-12 justify-items-center">
+      <div className="bg-gray-700 text-white w-full md:w-96 rounded-lg overflow-hidden shadow-xl my-2">
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2" />
           <div className="h-8 bg-slate-800 w-1/2 mb-2 animate-pulse" />

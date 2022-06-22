@@ -139,9 +139,9 @@ function AddProject() {
 
   return (
     <section className="text-white bg-gray-900">
-      <div className="max-w-screen-xl px-4 py-32 mx-auto lg:h-screen">
+      <div className="max-w-screen-xl px-4 py-4 md:py-32 mx-auto lg:h-screen">
         <div className="mx-auto text-center">
-          <h1 className="text-6xl">
+          <h1 className="text-4xl md:text-6xl">
             Create a project
           </h1>
         </div>
@@ -218,7 +218,7 @@ function AddProject() {
             {
               projectImage
                 && (
-                <img src={projectImage} alt="projectImage" className="mb-4 mx-auto h-auto w-1/2" />
+                <img src={projectImage} alt="projectImage" className="mb-4 mx-auto h-auto w-full md:w-1/2" />
                 )
             }
             <button type="button" className="mx-auto p-2 border-2 border-white rounded-lg" onClick={selectImage}>Upload image</button>
