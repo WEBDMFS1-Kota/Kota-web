@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { login } from '../store/userSlice';
 
@@ -8,6 +8,7 @@ function resetPassword() {
   const token = searchParams.get('token');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const isLogged = useSelector((state) => state.user.isLogged);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,6 +33,10 @@ function resetPassword() {
       navigate('/', { replace: true });
     }
   }
+
+  useEffect(() => {
+    if (isLogged) navigate('/userSettings', { replace: true });
+  }, []);
 
   return (
     <section className="text-black dark:text-white flex flex-grow items-center justify-center px-4 md:px-0">

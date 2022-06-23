@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail } from '../utils';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
+  const isLogged = useSelector((state) => state.user.isLogged);
 
   const navigate = useNavigate();
 
@@ -23,6 +25,10 @@ function ForgotPassword() {
       navigate('/login');
     }
   }
+
+  useEffect(() => {
+    if (isLogged) navigate('/userSettings', { replace: true });
+  }, []);
 
   return (
     <section className="text-black dark:text-white flex flex-grow items-center justify-center px-4 md:px-0">

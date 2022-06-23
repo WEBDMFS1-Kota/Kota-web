@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../store/userSlice';
 
@@ -7,6 +7,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, isRememberMe] = useState(false);
+  const isLogged = useSelector((state) => state.user.isLogged);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,6 +30,10 @@ function Login() {
       navigate('/', { replace: true });
     }
   }
+
+  useEffect(() => {
+    if (isLogged) navigate('/userSettings', { replace: true });
+  }, []);
 
   return (
     <section className="text-black dark:text-white flex flex-grow items-center justify-center px-4 md:px-0">

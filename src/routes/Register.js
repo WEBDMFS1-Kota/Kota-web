@@ -1,7 +1,7 @@
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import uploadImage from '../services/S3Service';
 import { login } from '../store/userSlice';
@@ -16,6 +16,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [githubProfileURL, setGithubProfileUrl] = useState('');
   const [rememberMe, isRememberMe] = useState(false);
+  const isLogged = useSelector((state) => state.user.isLogged);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,6 +60,11 @@ function Register() {
       navigate('/', { replace: true });
     }
   }
+
+  useEffect(() => {
+    if (isLogged) navigate('/userSettings', { replace: true });
+  }, []);
+
   return (
     <section className="text-white dark:text-white flex flex-grow items-center justify-center px-4 md:px-0 mb-4 mt-4">
       <div className="bg-white shadow-md border bg-gray-400 border-gray-400 rounded-lg max-w-sm w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700 mb-4">
