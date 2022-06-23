@@ -5,7 +5,7 @@ import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import Select from 'react-select';
 import uploadImage from '../services/S3Service';
-import isEqual from '../utils';
+import { isEqual } from '../utils';
 import customStyles from '../styles/reactSelect';
 
 function ModifyProject() {

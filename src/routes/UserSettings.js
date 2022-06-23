@@ -8,7 +8,7 @@ import Select from 'react-select';
 import uploadImage from '../services/S3Service';
 import { updateUserInfos } from '../store/userSlice';
 import customStyles from '../styles/reactSelect';
-import isEqual from '../utils';
+import { isEqual } from '../utils';
 
 function UserSettings() {
   const isLogged = useSelector((state) => state.user.isLogged);
