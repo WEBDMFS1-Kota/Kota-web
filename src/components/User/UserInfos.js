@@ -18,7 +18,7 @@ function UserInfos(props) {
     <div className="px-4 text-black dark:text-white">
       <div className="flex flex-col md:flex-row rounded-lg dark:border dark:border-gray-600/80 bg-gray-400 dark:bg-gray-700 mt-6 p-6 shadow-xl">
         <img
-          className="w-40 h-40 rounded-full object-cover mx-auto"
+          className="w-40 h-40 rounded-full object-cover mx-auto md:mx-0"
           src={user.avatar ? user.avatar : `${process.env.PUBLIC_URL}/default-avatar.jpg`}
           alt="User"
         />
