@@ -15,7 +15,7 @@ function projectCard(props) {
   const voteOk = () => toast.success('Vote registered');
   const [projectUpVote, setProjectUpVote] = useState(0);
   const [projectDownVote, setProjectDownVote] = useState(0);
-  const [voteStatus, setVoteStatus] = useState('');
+  const [voteStatus, setVoteStatus] = useState(0);
   async function upVote() {
     const options = {
       method: 'PATCH',
@@ -26,16 +26,17 @@ function projectCard(props) {
       }),
     };
     if (isLogged) {
-      await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
-      if (voteStatus === 'upVote') {
-        setVoteStatus('');
+      const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+      console.log(request);
+      if (voteStatus === 1) {
+        setVoteStatus(0);
         setProjectUpVote(projectUpVote - 1);
-      } else if (voteStatus === 'downVote') {
-        setVoteStatus('upVote');
+      } else if (voteStatus === -1) {
+        setVoteStatus(1);
         setProjectUpVote(projectUpVote + 1);
         setProjectDownVote(projectDownVote - 1);
       } else {
-        setVoteStatus('upVote');
+        setVoteStatus(1);
         setProjectUpVote(projectUpVote + 1);
       }
       voteOk();
@@ -61,15 +62,15 @@ function projectCard(props) {
       } else {
         voteOk();
       }
-      if (voteStatus === 'downVote') {
-        setVoteStatus('');
+      if (voteStatus === -1) {
+        setVoteStatus(0);
         setProjectDownVote(projectDownVote - 1);
-      } else if (voteStatus === 'upVote') {
-        setVoteStatus('downVote');
+      } else if (voteStatus === 1) {
+        setVoteStatus(-1);
         setProjectUpVote(projectUpVote - 1);
         setProjectDownVote(projectDownVote + 1);
       } else {
-        setVoteStatus('downVote');
+        setVoteStatus(-1);
         setProjectDownVote(projectDownVote + 1);
       }
     } else {
@@ -77,7 +78,20 @@ function projectCard(props) {
     }
   }
 
+  async function fetchUserVotes() {
+    const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}?id=${userId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    });
+    console.log(request);
+    if (request.ok && request.status === 200) {
+      const vote = await request.json();
+      setVoteStatus(vote.voteValue);
+    }
+  }
+
   useEffect(() => {
+    fetchUserVotes();
     setProjectDownVote(project.downVote);
     setProjectUpVote(project.upVote);
   }, []);
@@ -97,11 +111,11 @@ function projectCard(props) {
           </p>
         </div>
         <div className="flex px-6 py-4">
-          <button type="button" className={`${voteStatus === 'upVote' ? 'bg-blue-500 text-white ' : ''}rounded-xl hover:text-white hover:bg-blue-600 py-1.5 px-2.5 mr-1`} onClick={() => upVote()}>
+          <button type="button" className={`${voteStatus === 1 ? 'bg-blue-500 text-white ' : ''}rounded-xl hover:text-white hover:bg-blue-600 py-1.5 px-2.5 mr-1`} onClick={() => upVote()}>
             <span className="inline-block bg-grey-lighter rounded-full px-1 py-1 text-sm font-semibold text-grey-darker mr-2"><FontAwesomeIcon icon={faArrowUp} /></span>
             <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">{projectUpVote}</span>
           </button>
-          <button type="button" className={`${voteStatus === 'downVote' ? 'bg-red-500 ' : ''}rounded-xl hover:text-white hover:bg-red-600 py-1.5 px-2.5`} onClick={() => downVote()}>
+          <button type="button" className={`${voteStatus === -1 ? 'bg-red-500 ' : ''}rounded-xl hover:text-white hover:bg-red-600 py-1.5 px-2.5`} onClick={() => downVote()}>
             <span className="inline-block bg-grey-lighter rounded-full px-1 py-1 text-sm font-semibold text-grey-darker mr-2"><FontAwesomeIcon icon={faArrowDown} /></span>
             <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">{projectDownVote}</span>
           </button>
