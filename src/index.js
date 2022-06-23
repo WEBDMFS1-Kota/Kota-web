@@ -32,24 +32,24 @@ root.render(
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="forgotPassword" element={<ForgotPassword />} />
-          <Route path="resetPassword" element={<ResetPassword />} />
-          <Route path="userSettings" element={<UserSettings />} />
+          <Route path="/" element={<Home />} className="h-full" />
+          <Route path="login" element={<Login />} className="h-full" />
+          <Route path="register" element={<Register />} className="h-full" />
+          <Route path="forgotPassword" element={<ForgotPassword />} className="h-full" />
+          <Route path="resetPassword" element={<ResetPassword />} className="h-full" />
+          <Route path="userSettings" element={<UserSettings />} className="h-full" />
           <Route path="user">
             <Route index element={<Navigate to="/" replace />} />
-            <Route path="notfound" element={<NotFoundError />} />
-            <Route path=":userID" element={<User />} />
+            <Route path="notfound" element={<NotFoundError />} className="h-full" />
+            <Route path=":userID" element={<User />} className="h-full" />
           </Route>
           <Route path="project">
-            <Route path="add" element={<AddProject />} />
-            <Route path="notfound" element={<NotFoundError />} />
-            <Route path=":projectID" element={<Project />} />
-            <Route path=":projectID/modify" element={<ModifyProject />} />
+            <Route path="add" element={<AddProject />} className="h-full" />
+            <Route path="notfound" element={<NotFoundError />} className="h-full" />
+            <Route path=":projectID" element={<Project />} className="h-full" />
+            <Route path=":projectID/modify" element={<ModifyProject />} className="h-full" />
           </Route>
-          <Route path="*" element={<NotFoundError />} />
+          <Route path="*" element={<NotFoundError />} className="h-full" />
         </Routes>
       </BrowserRouter>
     </PersistGate>
