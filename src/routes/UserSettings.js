@@ -187,9 +187,9 @@ function UserSettings() {
   }
 
   return (
-    <div className="container px-4 md:px-0 mx-0 md:mx-auto">
+    <div className="container px-4 md:px-0 mx-0 md:mx-auto mt-4">
       <section>
-        <div className="bg-white shadow-md border border-gray-200 rounded-lg w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="text-black dark:text-white bg-gray-400 shadow-md border border-gray-400 rounded-lg w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
           <form className="space-y-0 md:space-y-6" action="#">
             <div className="grid md:grid-cols-2">
               <div>

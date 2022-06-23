@@ -191,8 +191,8 @@ function ModifyProject() {
   }, []);
 
   return (
-    <section className="text-white bg-gray-900 px-4 md:px-0">
-      <div className="bg-white shadow-md border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 max-w-screen-xl px-4 py-4 md:py-16 my-16 mx-auto">
+    <section className="text-black dark:text-white px-4 md:px-0">
+      <div className="bg-white shadow-md border bg-gray-400 border-gray-400 rounded-lg dark:bg-gray-800 dark:border-gray-700 max-w-screen-xl px-4 py-4 md:py-16 my-16 mx-auto">
         <div className="mx-auto text-center">
           <h1 className="text-4xl md:text-6xl">
             Modify your project
