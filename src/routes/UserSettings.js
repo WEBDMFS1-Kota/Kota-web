@@ -24,7 +24,7 @@ function UserSettings() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [githubprofileurl, setGithubProfileUrl] = useState('');
+  const [githubProfileURL, setGithubProfileUrl] = useState('');
   const [userInfosLoading, setUserInfosLoading] = useState(true);
   const [globalTags, setGlobalTags] = useState([]);
   const [initialUserTags, setInitialUserTags] = useState([]);
@@ -108,7 +108,7 @@ function UserSettings() {
       ...(email !== userInfos.email && { email }),
       ...(avatar !== userInfos.avatar && { avatar }),
       ...(password && { password }),
-      ...(githubprofileurl !== userInfos.githubprofileurl && { githubprofileurl }),
+      ...(githubProfileURL !== userInfos.githubProfileURL && { githubProfileURL }),
     });
 
     const requestOptions = {
@@ -145,7 +145,7 @@ function UserSettings() {
       setBirthdate(dayjs(response[0].birthDate).format('YYYY-MM-DD'));
       setEmail(response[0].email);
       setPseudo(response[0].pseudo);
-      setGithubProfileUrl(response[0].githubprofileurl);
+      setGithubProfileUrl(response[0].githubProfileURL);
     } else {
       navigate('/user/notfound', { replace: true });
     }
@@ -323,7 +323,7 @@ function UserSettings() {
                       type="text"
                       name="githubprofileurl"
                       id="githubprofileurl"
-                      value={githubprofileurl}
+                      value={githubProfileURL}
                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                       placeholder="https://github.com/..."
                       onChange={(e) => setGithubProfileUrl(e.target.value)}
