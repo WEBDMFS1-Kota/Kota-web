@@ -25,7 +25,7 @@ function ForgotPassword() {
   }
 
   return (
-    <section className="text-black dark:text-white min-h-screen flex items-center justify-center px-4 md:px-0">
+    <section className="text-black dark:text-white flex flex-grow items-center justify-center px-4 md:px-0">
       <div className="bg-white shadow-md border bg-gray-400 border-gray-400 rounded-lg max-w-sm w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form className="space-y-6" action="#">
           <h3 className="text-xl font-medium text-gray-900">
