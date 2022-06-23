@@ -14,7 +14,7 @@ function Register() {
   const [pseudo, setPseudo] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [githubprofileurl, setGithubProfileUrl] = useState('');
+  const [githubProfileURL, setGithubProfileUrl] = useState('');
   const [rememberMe, isRememberMe] = useState(false);
 
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function Register() {
         lastname,
         email,
         password,
-        githubprofileurl,
+        githubProfileURL,
         rememberMe,
       }),
     };
