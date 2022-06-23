@@ -84,7 +84,7 @@ function projectCard(props) {
 
   return (
     <div className="grid grid-cols-1 my-2 mx-0 md:mx-12 justify-items-center">
-      <div className="bg-gray-700 text-white w-full md:w-96 rounded-lg overflow-hidden shadow-xl my-2">
+      <div className="bg-gray-400 dark:bg-gray-700 text-black dark:text-white w-full md:w-96 rounded-lg overflow-hidden shadow-xl my-2">
         <NavLink to={`/project/${project.id}`}>
           {project.image && <img className="w-full" src={project.image} alt={`project-${project.id}`} />}
         </NavLink>
@@ -97,11 +97,11 @@ function projectCard(props) {
           </p>
         </div>
         <div className="flex px-6 py-4">
-          <button type="button" className={`${voteStatus === 'upVote' ? 'bg-blue-400 ' : ''}rounded-xl hover:bg-gray-600 py-1.5 px-2.5 mr-1`} onClick={() => upVote()}>
+          <button type="button" className={`${voteStatus === 'upVote' ? 'bg-blue-500 text-white ' : ''}rounded-xl hover:text-white hover:bg-blue-600 py-1.5 px-2.5 mr-1`} onClick={() => upVote()}>
             <span className="inline-block bg-grey-lighter rounded-full px-1 py-1 text-sm font-semibold text-grey-darker mr-2"><FontAwesomeIcon icon={faArrowUp} /></span>
             <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">{projectUpVote}</span>
           </button>
-          <button type="button" className={`${voteStatus === 'downVote' ? 'bg-red-400 ' : ''}rounded-xl hover:bg-gray-600 py-1.5 px-2.5`} onClick={() => downVote()}>
+          <button type="button" className={`${voteStatus === 'downVote' ? 'bg-red-500 ' : ''}rounded-xl hover:text-white hover:bg-red-600 py-1.5 px-2.5`} onClick={() => downVote()}>
             <span className="inline-block bg-grey-lighter rounded-full px-1 py-1 text-sm font-semibold text-grey-darker mr-2"><FontAwesomeIcon icon={faArrowDown} /></span>
             <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">{projectDownVote}</span>
           </button>
