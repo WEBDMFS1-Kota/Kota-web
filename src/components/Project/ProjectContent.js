@@ -17,7 +17,7 @@ function ProjectContent(props) {
             project.image
             && (
             <div>
-              <img src={project.image} alt="projectMain" className="h-auto" />
+              <img src={project.image} alt="projectMain" className="h-auto mx-auto" />
             </div>
             )
         }
