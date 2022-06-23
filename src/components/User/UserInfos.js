@@ -123,7 +123,7 @@ function UserInfos(props) {
         {
               personalUserID === user.id
               && (
-              <div className="w-100 flex flex-grow flex-col items-end justify-start">
+              <div className="min-w-fit flex flex-grow flex-col items-end justify-start">
                 <div className="flex flex-row space-x-3">
                   <NavLink
                     to="/userSettings"
