@@ -100,7 +100,7 @@ function projectCard(props) {
     <div className="grid grid-cols-1 my-2 mx-0 md:mx-12 justify-items-center">
       <div className="bg-gray-400 dark:bg-gray-700 text-black dark:text-white w-full md:w-96 rounded-lg overflow-hidden shadow-xl my-2">
         <NavLink to={`/project/${project.id}`}>
-          {project.image && <img className="w-full" src={project.image} alt={`project-${project.id}`} />}
+          {project.image && <img className="w-full max-h-48 object-cover" src={project.image} alt={`project-${project.id}`} />}
         </NavLink>
         <div className="px-6 py-4">
           <NavLink to={`/project/${project.id}`}>

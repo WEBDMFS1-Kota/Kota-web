@@ -28,8 +28,7 @@ function UserProjectCard(props) {
       }),
     };
     if (isLogged) {
-      const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
-      console.log(request);
+      await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
       if (voteStatus === 1) {
         setVoteStatus(0);
         setProjectUpVote(projectUpVote - 1);
@@ -111,11 +110,13 @@ function UserProjectCard(props) {
   }, []);
 
   return (
-    <div className="px-4 mt-2">
-      <div className="bg-gray-400 dark:bg-gray-700 text-black dark:text-white rounded-lg overflow-hidden shadow-xl my-4">
+    <div className="px-4 mt-2 flex items-center">
+      <div className="bg-gray-400 dark:bg-gray-700 text-black dark:text-white rounded-lg flex flex-col shadow-xl my-4 w-full">
         {
           project.image
-          && (<img className="w-full" src={project.image} alt="Sunset in the mountains" />)
+          && (
+            <img className="w-auto max-h-48 object-cover" src={project.image} alt="Sunset in the mountains" />
+          )
         }
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{project.title}</div>
