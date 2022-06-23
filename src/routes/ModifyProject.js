@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import SimpleMDE from 'react-simplemde-editor';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'easymde/dist/easymde.min.css';
 import Select from 'react-select';
 import uploadImage from '../services/S3Service';
@@ -20,6 +22,8 @@ function ModifyProject() {
   const [initialProjectTags, setInitialProjectTags] = useState([]);
   const [projectTags, setProjectTags] = useState([]);
   const [project, setProject] = useState({});
+
+  const changedInfos = () => toast.success('Project infos updated');
 
   const token = useSelector((state) => state.user.token);
   const navigate = useNavigate();
@@ -165,8 +169,17 @@ function ModifyProject() {
       body,
     };
     const response = await fetch(`https://kota-api-prod.herokuapp.com/projects/${projectID}`, requestOptions);
+    if (!response.ok) {
+      const errorRequest = () => toast.error(response.statusText);
+      errorRequest();
+    }
     if (response.ok) {
-      if (await saveProjectTags()) navigate(`/project/${projectID}`, { replace: false });
+      if (await saveProjectTags()) {
+        changedInfos();
+        setTimeout(() => {
+          navigate(`/project/${projectID}`, { replace: false });
+        }, 3000);
+      }
     }
   }
 
@@ -286,6 +299,7 @@ function ModifyProject() {
             styles={customStyles}
           />
         </div>
+        <ToastContainer autoClose={2000} />
       </div>
     </section>
   );
