@@ -398,7 +398,7 @@ function UserSettings() {
               </div>
               <div className="mb-32 col-span-2">
                 <h1 className="text-lg font-medium text-gray-900 block dark:text-gray-300 mb-5">
-                  Tags of the project
+                  Tags of the user
                 </h1>
                 <Select
                   isMulti
