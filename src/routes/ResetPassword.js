@@ -34,16 +34,16 @@ function resetPassword() {
   }
 
   return (
-    <section className="text-white min-h-screen bg-gray-900 flex items-center justify-center px-4 md:px-0">
-      <div className="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <section className="text-black dark:text-white min-h-screen flex items-center justify-center px-4 md:px-0">
+      <div className="bg-white shadow-md border bg-gray-400 border-gray-400 rounded-lg max-w-sm w-full p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form className="space-y-6" action="#">
-          <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+          <h3 className="text-xl font-medium">
             Reset your password
           </h3>
           <div>
             <label
               htmlFor="password"
-              className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+              className="text-sm font-medium block mb-2 dark:text-gray-300"
             >
               Your
               password
@@ -54,7 +54,7 @@ function resetPassword() {
                 name="password"
                 id="password"
                 placeholder="••••••••"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                className="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                 onChange={(e) => setPassword(e.target.value)}
                 required=""
               />
@@ -63,7 +63,7 @@ function resetPassword() {
           <div>
             <label
               htmlFor="confirmPassword"
-              className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+              className="text-sm font-medium block mb-2"
             >
               Confirm your password
               {' '}
@@ -73,7 +73,7 @@ function resetPassword() {
                 name="confirmPassword"
                 id="confirmPassword"
                 placeholder="••••••••"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                className="bg-gray-50 border border-gray-300 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400"
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required=""
               />
