@@ -1,8 +1,9 @@
+import React, { useEffect, useState } from 'react';
 import { faArrowDown, faArrowUp, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function UserProjectCard(props) {
   const { project, userID } = props;
@@ -12,18 +13,11 @@ function UserProjectCard(props) {
 
   const navigate = useNavigate();
 
-  async function deleteProject() {
-    const requestOptions = {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
-    };
-
-    const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/${project.id}`, requestOptions);
-    if (request.ok) {
-      navigate(0);
-    }
-  }
-
+  const notConnected = () => toast.error('You must be connected to vote for a project.');
+  const voteOk = () => toast.success('Vote registered');
+  const [projectUpVote, setProjectUpVote] = useState(0);
+  const [projectDownVote, setProjectDownVote] = useState(0);
+  const [voteStatus, setVoteStatus] = useState(0);
   async function upVote() {
     const options = {
       method: 'PATCH',
@@ -34,7 +28,22 @@ function UserProjectCard(props) {
       }),
     };
     if (isLogged) {
-      await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+      const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+      console.log(request);
+      if (voteStatus === 1) {
+        setVoteStatus(0);
+        setProjectUpVote(projectUpVote - 1);
+      } else if (voteStatus === -1) {
+        setVoteStatus(1);
+        setProjectUpVote(projectUpVote + 1);
+        setProjectDownVote(projectDownVote - 1);
+      } else {
+        setVoteStatus(1);
+        setProjectUpVote(projectUpVote + 1);
+      }
+      voteOk();
+    } else {
+      notConnected();
     }
   }
 
@@ -48,9 +57,58 @@ function UserProjectCard(props) {
       }),
     };
     if (isLogged) {
-      await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+      const patched = await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
+      if (!patched.ok) {
+        const errorRequest = () => toast.error(patched.statusText);
+        errorRequest();
+      } else {
+        voteOk();
+      }
+      if (voteStatus === -1) {
+        setVoteStatus(0);
+        setProjectDownVote(projectDownVote - 1);
+      } else if (voteStatus === 1) {
+        setVoteStatus(-1);
+        setProjectUpVote(projectUpVote - 1);
+        setProjectDownVote(projectDownVote + 1);
+      } else {
+        setVoteStatus(-1);
+        setProjectDownVote(projectDownVote + 1);
+      }
+    } else {
+      notConnected();
     }
   }
+
+  async function deleteProject() {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/${project.id}`, requestOptions);
+    if (request.ok) {
+      navigate(0);
+    }
+  }
+
+  async function fetchUserVotes() {
+    const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}?id=${userId}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+    });
+    console.log(request);
+    if (request.ok && request.status === 200) {
+      const vote = await request.json();
+      setVoteStatus(vote.voteValue);
+    }
+  }
+
+  useEffect(() => {
+    fetchUserVotes();
+    setProjectDownVote(project.downVote);
+    setProjectUpVote(project.upVote);
+  }, []);
 
   return (
     <div className="px-4 mt-2">
@@ -66,13 +124,13 @@ function UserProjectCard(props) {
           </p>
         </div>
         <div className="flex justify-between px-6 py-4 w-full">
-          <button type="button" className=" rounded-xl hover:bg-gray-600 py-1.5 px-2.5 cursor-default" onClick={() => upVote()}>
+          <button type="button" className={`${voteStatus === 1 ? 'bg-blue-500 text-white ' : ''}rounded-xl hover:text-white hover:bg-blue-600 py-1.5 px-2.5 mr-1`} onClick={() => upVote()}>
             <span className="inline-block bg-grey-lighter rounded-full px-1 py-1 text-sm font-semibold text-grey-darker mr-2"><FontAwesomeIcon icon={faArrowUp} /></span>
-            <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">{project.upVote}</span>
+            <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">{projectUpVote}</span>
           </button>
-          <button type="button" className="rounded-xl hover:bg-gray-600 py-1.5 px-2.5 cursor-default" onClick={() => downVote()}>
+          <button type="button" className={`${voteStatus === -1 ? 'bg-red-500 ' : ''}rounded-xl hover:text-white hover:bg-red-600 py-1.5 px-2.5`} onClick={() => downVote()}>
             <span className="inline-block bg-grey-lighter rounded-full px-1 py-1 text-sm font-semibold text-grey-darker mr-2"><FontAwesomeIcon icon={faArrowDown} /></span>
-            <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">{project.downVote}</span>
+            <span className="inline-block bg-grey-lighter rounded-full text-sm font-semibold text-grey-darker">{projectDownVote}</span>
           </button>
           {
               (isLogged && userID === userId)
