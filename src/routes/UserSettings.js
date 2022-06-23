@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import dayjs from 'dayjs';
 import Select from 'react-select';
 import uploadImage from '../services/S3Service';
@@ -29,7 +31,7 @@ function UserSettings() {
   const [globalTags, setGlobalTags] = useState([]);
   const [initialUserTags, setInitialUserTags] = useState([]);
   const [userTags, setUserTags] = useState([]);
-
+  const changedSettings = () => toast.success('Profile settings updated');
   const storedPseudo = useSelector((state) => state.user.pseudo);
   const storedAvatar = useSelector((state) => state.user.avatar);
 
@@ -120,8 +122,11 @@ function UserSettings() {
       },
       body,
     };
-
     const request = await fetch(`https://kota-api-prod.herokuapp.com/users?id=${userID}`, requestOptions);
+    if (!request.ok) {
+      const errorRequest = () => toast.error(request.statusText);
+      errorRequest();
+    }
     if (request.ok) {
       if (pseudo !== storedPseudo || avatar !== storedAvatar) {
         dispatch(updateUserInfos({
@@ -130,6 +135,7 @@ function UserSettings() {
         }));
       }
       saveUserTags();
+      changedSettings();
     }
   }
 
@@ -413,6 +419,7 @@ function UserSettings() {
       <section>
         <p />
       </section>
+      <ToastContainer autoClose={2000} />
     </div>
   );
 }
