@@ -1,9 +1,9 @@
 const customStyles = {
   menu: (provided) => ({
     ...provided,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgb(75 85 99)',
     color: 'white',
-    borderColor: 'white',
+    borderColor: 'rgb(107 114 128)',
   }),
 
   container: (provided) => ({
@@ -13,7 +13,8 @@ const customStyles = {
 
   control: (provided) => ({
     ...provided,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgb(75 85 99)',
+    borderColor: 'rgb(107 114 128)',
   }),
 
   placeholder: (provided) => ({

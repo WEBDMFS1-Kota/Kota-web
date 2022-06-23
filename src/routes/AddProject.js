@@ -5,35 +5,7 @@ import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
 import Select from 'react-select';
 import uploadImage from '../services/S3Service';
-
-const customStyles = {
-  menu: (provided) => ({
-    ...provided,
-    backgroundColor: 'transparent',
-    color: 'white',
-    borderColor: 'white',
-  }),
-
-  container: (provided) => ({
-    ...provided,
-    color: 'transparent',
-  }),
-
-  control: (provided) => ({
-    ...provided,
-    backgroundColor: 'transparent',
-  }),
-
-  placeholder: (provided) => ({
-    ...provided,
-    color: 'white',
-  }),
-
-  option: (provided, { isFocused }) => ({
-    ...provided,
-    color: isFocused ? 'black' : 'white',
-  }),
-};
+import customStyles from '../styles/reactSelect';
 
 function AddProject() {
   const isLogged = useSelector((state) => state.user.isLogged);
@@ -138,24 +110,24 @@ function AddProject() {
   }, []);
 
   return (
-    <section className="text-white bg-gray-900">
-      <div className="max-w-screen-xl px-4 py-4 md:py-32 mx-auto lg:h-screen">
+    <section className="text-white bg-gray-900 px-4 md:px-0">
+      <div className="bg-white shadow-md border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700 max-w-screen-xl px-4 py-4 md:py-16 my-16 mx-auto">
         <div className="mx-auto text-center">
           <h1 className="text-4xl md:text-6xl">
             Create a project
           </h1>
         </div>
         <div className="my-10">
-          <div className="text-right">
-            <button type="button" className="mx-2 p-2 border-2 border-white rounded-lg" onClick={loadMDFile}>
+          <div className="text-center md:text-right">
+            <button type="button" className="w-2/3 md:w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800 disabled:hidden" onClick={loadMDFile}>
               Import a README file
             </button>
-            <button type="button" className="mx-2 p-2 border-2 border-white rounded-lg hidden">
+            <button type="button" className="mt-2 md:mt-0 w-2/3 md:w-fit mx-2 p-2 border-2 border-white rounded-lg hidden">
               Preview result
             </button>
             <button
               type="button"
-              className="mx-2 p-2 border-2 border-white rounded-lg"
+              className="w-2/3 mt-2 md:mt-0 w-2/3 md:w-fit ml-0 md:ml-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800 disabled:hidden"
               onClick={createProject}
             >
               Create project
@@ -173,7 +145,7 @@ function AddProject() {
               name="projectTitle"
               id="projectTitle"
               maxLength="50"
-              className="bg-transparent border border-black text-black sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-white dark:placeholder-gray-200 dark:text-white mt-3"
+              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="Name of the project"
               onChange={(e) => setProjectTitle(e.target.value)}
               required=""
@@ -196,7 +168,7 @@ function AddProject() {
               name="projectShortDescription"
               id="projectShortDescription"
               maxLength="100"
-              className="bg-transparent border border-black text-black sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-white dark:placeholder-gray-200 dark:text-white mt-3"
+              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
               placeholder="This is a project for..."
               onChange={(e) => setProjectShortDescription(e.target.value)}
               required=""
@@ -221,7 +193,7 @@ function AddProject() {
                 <img src={projectImage} alt="projectImage" className="mb-4 mx-auto h-auto w-full md:w-1/2" />
                 )
             }
-            <button type="button" className="mx-auto p-2 border-2 border-white rounded-lg" onClick={selectImage}>Upload image</button>
+            <button type="button" className="w-2/3 md:w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800 disabled:hidden" onClick={selectImage}>Upload image</button>
           </div>
           <input type="hidden" onChange={(e) => setProjectImage(e.target.value)} />
         </div>
