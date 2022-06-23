@@ -54,7 +54,7 @@ function UserProjectCard(props) {
 
   return (
     <div className="px-4 mt-2">
-      <div className="bg-gray-700 text-white rounded-lg overflow-hidden shadow-xl my-4">
+      <div className="bg-gray-400 dark:bg-gray-700 text-black dark:text-white rounded-lg overflow-hidden shadow-xl my-4">
         {
           project.image
           && (<img className="w-full" src={project.image} alt="Sunset in the mountains" />)
