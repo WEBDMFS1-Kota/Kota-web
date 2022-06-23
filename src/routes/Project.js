@@ -52,8 +52,8 @@ function Project() {
   }, []);
 
   return (
-    <div>
-      <section className="w-full px-4 md:px-0 md:w-1/2 mx-auto text-black dark:text-white mt-5">
+    <div className="px-4 md:px-0">
+      <section className="text-black dark:text-white bg-white shadow-md border bg-gray-400 border-gray-400 rounded-lg dark:bg-gray-800 dark:border-gray-700 max-w-screen-md px-4 py-4 md:py-16 my-16 mx-auto">
         {
           !loading
             ? (

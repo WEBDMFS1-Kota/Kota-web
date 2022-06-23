@@ -14,7 +14,7 @@ function ProjectCreator(props) {
         <h6 className="text-md italic my-4 md:my-0">{projectCreator.description}</h6>
       </div>
       <div className="my-auto">
-        <NavLink to={`/user/${projectCreator.id}`} className="rounded-md p-2 border border-white float-right">See profile</NavLink>
+        <NavLink to={`/user/${projectCreator.id}`} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800 disabled:hidden float-right">See profile</NavLink>
       </div>
     </div>
   );
