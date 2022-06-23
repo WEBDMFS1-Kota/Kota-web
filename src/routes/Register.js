@@ -77,23 +77,26 @@ function Register() {
             {
                 !avatar
                 && (
-                // eslint-disable-next-line max-len
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                <div
+                <button
+                  type="button"
                   className="rounded-full h-36 w-36 bg-gray-600 hover:bg-gray-700 mx-auto flex items-center justify-center my-auto"
                   onClick={selectImage}
                 >
                   <FontAwesomeIcon className="" icon={faCamera} size="2xl" />
-                </div>
+                </button>
                 )
             }
             {
                 avatar
                 && (
                 <div className="relative">
-                  <div className="absolute inset-0 z-10 rounded-full h-36 w-36 bg-gray-700 text-center flex flex-col items-center justify-center opacity-0 hover:opacity-100 bg-opacity-90 duration-300">
+                  <button
+                    type="button"
+                    className="absolute inset-0 z-10 rounded-full h-36 w-36 mx-auto my-auto bg-gray-700 text-center flex flex-col items-center justify-center opacity-0 hover:opacity-100 bg-opacity-90 duration-300"
+                    onClick={selectImage}
+                  >
                     <FontAwesomeIcon className="" icon={faCamera} size="2xl" />
-                  </div>
+                  </button>
                   <div className="relative">
                     <div className="h-48 flex flex-wrap content-center">
                       <img className="rounded-full h-36 w-36 mx-auto my-auto" src={avatar} alt="userAvatar" />
