@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import SimpleMDE from 'react-simplemde-editor';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'easymde/dist/easymde.min.css';
 import Select from 'react-select';
@@ -299,7 +299,6 @@ function ModifyProject() {
             styles={customStyles}
           />
         </div>
-        <ToastContainer autoClose={2000} />
       </div>
     </section>
   );

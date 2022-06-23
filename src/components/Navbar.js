@@ -46,7 +46,7 @@ function Navbar() {
                 aria-controls=""
               >
                 <span className="mr-3 my-auto text-xl hover:text-white hover:dark:text-gray-300">{pseudo}</span>
-                <img className="rounded-full h-auto w-12" src={avatar} alt="avatar" />
+                <img className="rounded-full h-12 w-12 object-cover" src={avatar} alt="avatar" />
               </button>
               <div className="opacity-0 invisible dropdown-menu transition-all duration-300 transform origin-top-right -translate-y-2 scale-95">
                 <div className="absolute right-0 w-56 mt-2 origin-top-right bg-gray-400 dark:bg-gray-900 border border-gray-600 divide-y divide-gray-500 rounded-md shadow-lg outline-none" aria-labelledby="headlessui-menu-button-1" id="headlessui-menu-items-117" role="menu">

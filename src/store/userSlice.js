@@ -23,7 +23,9 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.isLogged = false;
-      state.userId = null;
+      state.userID = null;
+      state.pseudo = '';
+      state.avatar = `${process.env.PUBLIC_URL}/default-avatar.jpg`;
     },
     updateUserInfos: (state, action) => {
       state.pseudo = action.payload.pseudo || state.pseudo;

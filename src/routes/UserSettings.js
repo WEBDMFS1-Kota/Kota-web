@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import dayjs from 'dayjs';
 import Select from 'react-select';
@@ -344,7 +344,7 @@ function UserSettings() {
                       && (
                       <button
                         type="button"
-                        className="rounded-full h-36 w-36 bg-gray-600 hover:bg-gray-700 mx-auto flex items-center justify-center my-auto"
+                        className="rounded-full h-36 w- bg-gray-600 hover:bg-gray-700 mx-auto flex items-center justify-center my-auto"
                         onClick={selectImage}
                       >
                         <FontAwesomeIcon className="" icon={faCamera} size="2xl" />
@@ -364,7 +364,7 @@ function UserSettings() {
                         </button>
                         <div className="relative">
                           <div className="h-48 flex flex-wrap content-center">
-                            <img className="rounded-full h-36 w-36 mx-auto my-auto" src={avatar} alt="userAvtar" />
+                            <img className="rounded-full h-36 w-36 object-cover mx-auto my-auto" src={avatar} alt="userAvtar" />
                           </div>
                         </div>
                       </div>
@@ -425,7 +425,6 @@ function UserSettings() {
       <section>
         <p />
       </section>
-      <ToastContainer autoClose={2000} />
     </div>
   );
 }

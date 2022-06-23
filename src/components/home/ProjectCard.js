@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function projectCard(props) {
@@ -12,7 +12,6 @@ function projectCard(props) {
   const token = useSelector((state) => state.user.token);
   const userId = useSelector((state) => state.user.userID);
   const notConnected = () => toast.error('You must be connected to vote for a project.');
-  const voteOk = () => toast.success('Vote registered');
   const [projectUpVote, setProjectUpVote] = useState(0);
   const [projectDownVote, setProjectDownVote] = useState(0);
   const [voteStatus, setVoteStatus] = useState(0);
@@ -26,8 +25,7 @@ function projectCard(props) {
       }),
     };
     if (isLogged) {
-      const request = await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
-      console.log(request);
+      await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
       if (voteStatus === 1) {
         setVoteStatus(0);
         setProjectUpVote(projectUpVote - 1);
@@ -39,7 +37,7 @@ function projectCard(props) {
         setVoteStatus(1);
         setProjectUpVote(projectUpVote + 1);
       }
-      voteOk();
+      toast.success('Vote registered', { toastId: 'toastSuccessUp' });
     } else {
       notConnected();
     }
@@ -57,10 +55,9 @@ function projectCard(props) {
     if (isLogged) {
       const patched = await fetch(`https://kota-api-prod.herokuapp.com/projects/vote/${project.id}`, options);
       if (!patched.ok) {
-        const errorRequest = () => toast.error(patched.statusText);
-        errorRequest();
+        toast.error(patched.statusText);
       } else {
-        voteOk();
+        toast.success('Vote registered', { toastId: 'toastSuccessDown' });
       }
       if (voteStatus === -1) {
         setVoteStatus(0);
@@ -83,7 +80,6 @@ function projectCard(props) {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     });
-    console.log(request);
     if (request.ok && request.status === 200) {
       const vote = await request.json();
       setVoteStatus(vote.voteValue);
@@ -126,7 +122,6 @@ function projectCard(props) {
           </button>
         </div>
       </div>
-      <ToastContainer autoClose={2000} />
     </div>
   );
 }

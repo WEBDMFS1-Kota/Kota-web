@@ -96,7 +96,6 @@ function UserProjectCard(props) {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
     });
-    console.log(request);
     if (request.ok && request.status === 200) {
       const vote = await request.json();
       setVoteStatus(vote.voteValue);

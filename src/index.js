@@ -7,6 +7,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
 import Navbar from './components/Navbar';
 import AddProject from './routes/AddProject';
@@ -51,6 +52,7 @@ root.render(
           </Route>
           <Route path="*" element={<NotFoundError />} className="h-full" />
         </Routes>
+        <ToastContainer autoClose={1000} limit={5} />
       </BrowserRouter>
     </PersistGate>
   </Provider>,
