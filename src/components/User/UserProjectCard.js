@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { faArrowDown, faArrowUp, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 function UserProjectCard(props) {
@@ -115,11 +115,15 @@ function UserProjectCard(props) {
         {
           project.image
           && (
-            <img className="w-auto max-h-48 object-cover" src={project.image} alt="Sunset in the mountains" />
+          <NavLink to={`/project/${project.id}`}>
+            {project.image && <img className="w-full max-h-48 object-cover" src={project.image} alt={`project-${project.id}`} />}
+          </NavLink>
           )
         }
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{project.title}</div>
+          <NavLink to={`/project/${project.id}`}>
+            <div className="font-bold text-xl mb-2 hover:underline">{project.title}</div>
+          </NavLink>
           <p className="text-grey-darker text-base">
             {project.shortDescription}
           </p>
