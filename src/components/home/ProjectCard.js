@@ -103,7 +103,7 @@ function projectCard(props) {
             project.image
             && (
             <NavLink to={`/project/${project.id}`}>
-              {project.image && <img className="w-full max-h-48 object-cover" src={project.image} alt={`project-${project.id}`} />}
+              {project.image && <img className="w-full h-48 object-cover" src={project.image} alt={`project-${project.id}`} />}
             </NavLink>
             )
         }
@@ -111,7 +111,7 @@ function projectCard(props) {
           <NavLink to={`/project/${project.id}`}>
             <div className="font-bold text-xl mb-2 hover:underline">{project.title}</div>
           </NavLink>
-          <p className="text-grey-darker text-base">
+          <p className="text-grey-darker text-base h-12">
             {project.shortDescription}
           </p>
         </div>

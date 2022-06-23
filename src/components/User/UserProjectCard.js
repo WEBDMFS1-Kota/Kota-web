@@ -111,12 +111,12 @@ function UserProjectCard(props) {
 
   return (
     <div className="px-4 mt-2 flex items-center">
-      <div className="bg-gray-400 dark:bg-gray-700 text-black dark:text-white rounded-lg flex flex-col shadow-xl my-4 w-full">
+      <div className="bg-gray-400 dark:bg-gray-700 text-black dark:text-white flex flex-col shadow-xl my-4 w-full rounded-lg">
         {
           project.image
           && (
           <NavLink to={`/project/${project.id}`}>
-            {project.image && <img className="w-full max-h-48 object-cover" src={project.image} alt={`project-${project.id}`} />}
+            {project.image && <img className="w-full h-48 object-cover" src={project.image} alt={`project-${project.id}`} />}
           </NavLink>
           )
         }
@@ -124,7 +124,7 @@ function UserProjectCard(props) {
           <NavLink to={`/project/${project.id}`}>
             <div className="font-bold text-xl mb-2 hover:underline">{project.title}</div>
           </NavLink>
-          <p className="text-grey-darker text-base">
+          <p className="text-grey-darker text-base h-12">
             {project.shortDescription}
           </p>
         </div>
