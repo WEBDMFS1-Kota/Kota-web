@@ -2,6 +2,7 @@ import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 function projectCard(props) {
   const { project } = props;
@@ -40,13 +41,13 @@ function projectCard(props) {
   return (
     <div className="grid grid-cols-1 my-2 mx-0 md:mx-12 justify-items-center">
       <div className="bg-gray-700 text-white w-full md:w-96 rounded-lg overflow-hidden shadow-xl my-2">
-        <a href={`/project/${project.id}`}>
+        <NavLink to={`/project/${project.id}`}>
           {project.image && <img className="w-full" src={project.image} alt={`project-${project.id}`} />}
-        </a>
+        </NavLink>
         <div className="px-6 py-4">
-          <a href={`/project/${project.id}`}>
+          <NavLink to={`/project/${project.id}`}>
             <div className="font-bold text-xl mb-2 hover:underline">{project.title}</div>
-          </a>
+          </NavLink>
           <p className="text-grey-darker text-base">
             {project.shortDescription}
           </p>

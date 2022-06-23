@@ -74,7 +74,7 @@ function User() {
       }
       {
         !userProjectsLoading
-          && <UserProjects projects={userProjects} />
+          && <UserProjects projects={userProjects} userID={user.id} />
       }
     </div>
   );
